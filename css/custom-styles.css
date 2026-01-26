@@ -24,10 +24,10 @@ body {
 
 .hc-luckywheel {
     position: fixed;
-    top: 50%;
+    top: 53%; 
     right: 10%;
     left: auto;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(1.09); 
     margin: 0;
     width: 500px;
     height: 500px;
@@ -301,7 +301,7 @@ body {
         top: 50%;
         left: 50%;
         right: auto;
-        transform: translate(-50%, -50%) scale(1.0);
+        transform: translate(-50%, -50%) scale(0.8);
         margin: 0;
     }
 
