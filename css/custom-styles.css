@@ -223,7 +223,7 @@ body {
 
     .hc-luckywheel {
         position: fixed;
-        top: 65%;
+        top: 62%;
         left: 50%;
         right: auto;
         transform: translate(-50%, -50%) scale(0.65);
@@ -261,5 +261,6 @@ body {
     }
 
 }
+
 
 
