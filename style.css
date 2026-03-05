@@ -50,7 +50,12 @@ body {
 .logo-header {
   background: #fff;
   border-bottom: 1px solid #f0f0f0;
-  padding: 12px 0;
+  padding: 10px 0;
+}
+
+.logo-header .container {
+  flex-wrap: nowrap;
+  gap: 8px;
 }
 
 .logo-text {
@@ -64,6 +69,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .search-bar .form-control {
@@ -303,6 +309,7 @@ body {
   line-height: 0;
   margin-bottom: -2px;
 }
+
 .footer-wave svg {
   width: 100%;
   height: 60px;
@@ -413,10 +420,22 @@ footer {
   opacity: .85;
 }
 
-.footer-social-btn.facebook  { background: #1877f2; }
-.footer-social-btn.youtube   { background: #ff0000; }
-.footer-social-btn.instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
-.footer-social-btn.tiktok    { background: #010101; border: 1px solid #333; }
+.footer-social-btn.facebook {
+  background: #1877f2;
+}
+
+.footer-social-btn.youtube {
+  background: #ff0000;
+}
+
+.footer-social-btn.instagram {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.footer-social-btn.tiktok {
+  background: #010101;
+  border: 1px solid #333;
+}
 
 /* Subscribe */
 .footer-subscribe-row {
@@ -1234,40 +1253,323 @@ footer {
 }
 
 /* Responsive*/
+/* ── 768px — tablet & mobile ── */
 @media (max-width: 768px) {
-  .hero-text {
-    text-align: center;
-    margin-bottom: 20px;
+
+  /* Header */
+  .logo {
+    max-height: 44px;
   }
 
-  .hero-text h2 {
-    font-size: 1.5rem;
+  .logo-header .container {
+    gap: 6px;
   }
 
-  .hero-images img {
-    height: 150px;
-  }
-
-  .product-card .card-img-top {
-    height: 200px;
-  }
-
-  .step-divider {
-    width: 30px;
+  .search-bar {
+    gap: 5px;
   }
 
   .search-bar .form-control {
-    width: 150px;
+    width: 110px;
+    font-size: .8rem;
+    padding: 5px 10px;
   }
 
+  .user-icon-name {
+    display: none;
+  }
+
+  .user-icon-btn {
+    padding: 6px 8px;
+  }
+
+  /* Hero */
+  .hero-banner {
+    padding: 28px 0;
+  }
+
+  .hero-text {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .hero-text h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero-images {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .hero-images img {
+    height: 120px;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Section title */
+  .section-title-label {
+    font-size: .95rem;
+    white-space: normal;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  /* Product card */
+  .product-card .card-img-top {
+    height: 160px;
+  }
+
+  .product-card .card-title {
+    font-size: .85rem;
+  }
+
+  .product-card .price {
+    font-size: .9rem;
+  }
+
+  .btn-order {
+    padding: 5px 12px;
+    font-size: .82rem;
+  }
+
+  /* Page header */
+  .page-header-banner {
+    padding: 24px 0 18px;
+  }
+
+  .page-header-banner h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    padding: 12px 14px;
+    gap: 6px;
+  }
+
+  .sort-btn {
+    padding: 4px 10px;
+    font-size: .78rem;
+  }
+
+  /* Cart table — scroll on mobile */
+  .cart-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cart-table table {
+    min-width: 480px;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 10px 10px;
+  }
+
+  .cart-item-img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .cart-summary {
+    position: static;
+  }
+
+  /* Checkout steps */
+  .checkout-steps {
+    gap: 0;
+    margin-bottom: 20px;
+  }
+
+  .step-divider {
+    width: 20px;
+    margin: 0 4px;
+  }
+
+  .step-label {
+    font-size: .72rem;
+  }
+
+  .checkout-card {
+    padding: 16px 14px;
+  }
+
+  /* Order summary sticky → static on mobile */
+  .order-summary-box {
+    position: static;
+  }
+
+  /* Detail page */
   .detail-img-wrap img {
-    height: 300px;
+    height: 280px;
+  }
+
+  .detail-title {
+    font-size: 1.35rem;
+  }
+
+  .detail-price {
+    font-size: 1.3rem;
+  }
+
+  .btn-add-cart,
+  .btn-buy-now {
+    padding: 10px 20px;
+    font-size: .9rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Toast */
+  .toast-container {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+  }
+
+  .toast-custom {
+    min-width: unset;
+    width: 100%;
+  }
+
+  /* Auth card */
+  .auth-card {
+    padding: 24px 18px;
+    border-radius: 14px;
+  }
+
+  /* Auth card in taikhoan.html — ensure padding on small screens */
+  .container>.auth-card {
+    margin: 0 4px;
+  }
+
+  /* Account sidebar → horizontal scroll menu on mobile */
+  .account-sidebar {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .account-menu-item {
+    flex-shrink: 0;
+    border-bottom: none;
+    border-right: 1px solid #f9e0ea;
+    padding: 12px 16px;
+    font-size: .82rem;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+  }
+
+  .account-menu-item i {
+    font-size: 1.3rem;
+  }
+
+  .account-content {
+    padding: 16px 14px;
+  }
+
+  /* Success page */
+  .success-page {
+    padding: 36px 12px;
+  }
+
+  .order-code {
+    font-size: 1.2rem;
+    padding: 12px 18px;
+    letter-spacing: .1em;
+    word-break: break-all;
+  }
+
+  /* Footer */
+  .footer-main {
+    padding: 36px 0 28px;
+  }
+
+  .footer-tagline {
+    max-width: 100%;
   }
 }
 
+/* ── 480px — small phones ── */
 @media (max-width: 480px) {
+
   .hero-images {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-images img {
+    height: 130px;
+  }
+
+  .search-bar .form-control {
+    width: 90px;
+    font-size: .78rem;
+  }
+
+  .product-card .card-img-top {
+    height: 140px;
+  }
+
+  /* Cart table scroll hint */
+  .cart-table::after {
+    content: '';
+    display: block;
+  }
+
+  /* Checkout steps — hide label text, show only icons/numbers */
+  .step-label {
+    display: none;
+  }
+
+  .checkout-steps {
+    align-items: center;
+  }
+
+  /* Detail action buttons full width */
+  .btn-add-cart,
+  .btn-buy-now {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Page header smaller */
+  .page-header-banner h1 {
+    font-size: 1.2rem;
+  }
+
+  /* Footer bottom bar */
+  .footer-badges {
+    gap: 8px;
+  }
+
+  .footer-bottom-bar .d-flex {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  /* Auth card on very small screen */
+  .auth-card {
+    padding: 20px 14px;
+  }
+
+  /* Sort buttons wrap nicer */
+  .filter-bar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 10px 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sort-btn {
+    flex-shrink: 0;
   }
 }
 
