@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoa Tươi Hy Vọng — Giỏ Hàng</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="./img/logo1.png" rel="icon" type="image/x-icon" />
+</head>
+
+<body>
+
+  <div id="site-header"></div>
+
+  <div class="page-header-banner">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+          <li class="breadcrumb-item active">Giỏ Hàng</li>
+        </ol>
+      </nav>
+      <h1>🛒 Giỏ Hàng Của Bạn</h1>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <div id="cart-empty" class="empty-cart d-none">
+      <i class="bi bi-cart-x"></i>
+      <h4 class="mt-3" style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Giỏ hàng trống</h4>
+      <p class="text-muted">Hãy chọn thêm những bó hoa xinh để tặng người thân nhé!</p>
+      <a href="index.html" class="btn-order px-4 py-2">Tiếp tục mua sắm</a>
+    </div>
+    <div id="cart-content">
+      <div class="row g-4">
+        <div class="col-12 col-lg-8">
+          <div class="cart-table">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>Sản Phẩm</th>
+                  <th class="d-none d-md-table-cell">Đơn Giá</th>
+                  <th>Số Lượng</th>
+                  <th>Thành Tiền</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cart-items-tbody"></tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+            <a href="index.html" class="btn-order px-4"
+              style="background:#fff;color:var(--pink-dark);border:2px solid var(--pink-dark);">
+              ← Tiếp tục mua sắm
+            </a>
+            <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="cartClear()">
+              <i class="bi bi-trash me-1"></i>Xóa giỏ hàng
+            </button>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="cart-summary">
+            <h5>Tóm tắt đơn hàng</h5>
+            <hr style="border-color:#f0c0d0;">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Tạm tính:</span>
+              <span id="cart-subtotal" class="fw-bold">0 VND</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Phí giao hàng:</span>
+              <span class="text-success fw-bold">Miễn phí 🎉</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <span class="text-muted">Giảm giá:</span>
+              <span id="cart-discount" class="fw-bold text-success">0 VND</span>
+            </div>
+            <!-- Thử mã: HOATUOI20 / SALE15 / HOPHUONG -->
+            <div class="mb-3">
+              <div class="d-flex">
+                <input class="coupon-input" id="coupon-input" placeholder="Nhập mã giảm giá...">
+                <button class="coupon-btn" onclick="applyCoupon()">Áp dụng</button>
+              </div>
+              <div id="coupon-msg" class="mt-1" style="font-size:.82rem;"></div>
+            </div>
+            <hr style="border-color:#f0c0d0;">
+            <div class="d-flex justify-content-between mb-4">
+              <span class="fw-bold" style="font-size:1.05rem;">Tổng cộng:</span>
+              <span id="cart-total" class="fw-bold" style="font-size:1.2rem;color:var(--pink-dark);">0 VND</span>
+            </div>
+            <button class="btn-checkout-main d-block w-100 text-center" onclick="goCheckout()">
+              <i class="bi bi-lock-fill me-2"></i>Tiến hành thanh toán
+            </button>
+            <div class="text-center mt-3 text-muted" style="font-size:.78rem;">
+              <i class="bi bi-shield-check me-1" style="color:var(--pink-main);"></i>Thanh toán bảo mật &amp; an toàn
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    function formatPrice(n) {
+      return Number(n).toLocaleString("vi-VN") + " VND";
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById("toast-container");
+      if (!box) return;
+      const toast = document.createElement("div");
+      toast.className = "toast-custom";
+      toast.innerHTML = `<div class="toast-icon">🌸</div><div style="font-size:.9rem;">${msg}</div>`;
+      box.appendChild(toast);
+      setTimeout(() => {
+        toast.style.cssText += "opacity:0;transform:translateX(100px);transition:.3s;";
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    function handleSearch(val) {
+      if (!val.trim()) return;
+      window.location.href = "danhmuc.html?search=" + encodeURIComponent(val);
+    }
+
+    // Override renderCartPage để dùng đúng trang giỏ hàng
+    function renderCartPage() {
+      const items = cartLoad();
+      if (items.length === 0) {
+        document.getElementById("cart-empty").classList.remove("d-none");
+        document.getElementById("cart-content").style.display = "none";
+        return;
+      }
+      document.getElementById("cart-empty").classList.add("d-none");
+      document.getElementById("cart-content").style.display = "";
+
+      document.getElementById("cart-items-tbody").innerHTML = items.map(item => `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <img src="${item.img}" onerror="this.src='${item.imgFallback}'"
+                   class="cart-item-img" alt="${item.name}">
+              <div>
+                <div class="fw-bold" style="font-size:.95rem;">${item.name}</div>
+                <div class="text-muted d-md-none" style="font-size:.82rem;">${formatPrice(item.price)}</div>
+              </div>
+            </div>
+          </td>
+          <td class="d-none d-md-table-cell fw-bold" style="color:var(--pink-dark);">
+            ${formatPrice(item.price)}
+          </td>
+          <td>
+            <div class="cart-qty-control">
+              <button onclick="cartChangeQty(${item.id}, -1)">−</button>
+              <input type="number" value="${item.qty}" min="1"
+                     onchange="cartSetQty(${item.id}, this.value)">
+              <button onclick="cartChangeQty(${item.id}, 1)">+</button>
+            </div>
+          </td>
+          <td class="fw-bold" style="color:var(--pink-dark);">
+            ${formatPrice(item.price * item.qty)}
+          </td>
+          <td>
+            <button onclick="cartRemove(${item.id})"
+                    style="background:none;border:none;color:#bbb;font-size:1.2rem;cursor:pointer;"
+                    title="Xóa">✕</button>
+          </td>
+        </tr>
+      `).join("");
+
+      updateCartSummary();
+    }
+
+    function goCheckout() {
+      if (cartCount() === 0) {
+        showToast("⚠️ Giỏ hàng đang trống!");
+        return;
+      }
+      // Lưu discount để thanhtoan.html đọc lại
+      sessionStorage.setItem("hoatuoi_discount", _cartDiscount.toString());
+      window.location.href = "thanhtoan.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      cartUpdateBadge();
+      renderCartPage();
+      if (cartCount() > 0) {
+        setTimeout(() => {
+          const btn = document.getElementById("floating-cart-btn");
+          if (btn) btn.style.display = "";
+        }, 150);
+      }
+    });
+  </script>
+</body>
+
+</html>

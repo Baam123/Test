@@ -1,6 +1,4 @@
-/* ================================================================
-   js/ui.js — Điều hướng trang, render UI, tiện ích
-   ================================================================ */
+/* js/ui.js — Điều hướng trang, render UI, tiện ích */
 
 // ── Điều hướng ───────────────────────────────────────────────────
 
@@ -9,19 +7,21 @@ function showPage(name) {
   document.getElementById("page-" + name).classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
 
-  if (name === "cart")     renderCartPage();
+  if (name === "cart") renderCartPage();
   if (name === "checkout") renderCheckoutItems();
-  if (name === "account")  renderAccount();
+  if (name === "account") renderAccount();
 }
 
 function showCategory(cat) {
-  document.getElementById("cat-title").textContent       = cat;
-  document.getElementById("cat-breadcrumb").textContent  = cat;
-  document.getElementById("cat-desc").textContent        = "Khám phá bộ sưu tập " + cat.toLowerCase();
+  document.getElementById("cat-title").textContent = cat;
+  document.getElementById("cat-breadcrumb").textContent = cat;
+  document.getElementById("cat-desc").textContent = "Khám phá bộ sưu tập " + cat.toLowerCase();
 
-  const list = PRODUCTS.filter(p => p.category === cat);
-  document.getElementById("cat-count").textContent       = `Hiển thị ${list.length} sản phẩm`;
-  document.getElementById("cat-grid").innerHTML          = list.length
+  const list = PRODUCTS.filter(p =>
+    Array.isArray(p.category) ? p.category.includes(cat) : p.category === cat
+  );
+  document.getElementById("cat-count").textContent = `Hiển thị ${list.length} sản phẩm`;
+  document.getElementById("cat-grid").innerHTML = list.length
     ? list.map(p => productCardHTML(p)).join("")
     : `<div class="col-12 text-center py-5 text-muted">
          <i class="bi bi-search" style="font-size:3rem;color:#f0c0d0;"></i>
@@ -33,28 +33,34 @@ function showCategory(cat) {
 function showProduct(id) {
   const p = PRODUCTS.find(x => x.id === id);
   if (!p) return;
+
+  const catText = Array.isArray(p.category) ? p.category.join(", ") : p.category;
   window._currentProduct = p;
 
-  document.getElementById("detail-img").src            = p.img;
-  document.getElementById("detail-img").onerror        = () => document.getElementById("detail-img").src = p.imgFallback;
-  document.getElementById("detail-name").textContent   = p.name;
-  document.getElementById("detail-price").textContent  = formatPrice(p.price);
+  document.getElementById("detail-img").src = p.img;
+  document.getElementById("detail-img").onerror = () =>
+    document.getElementById("detail-img").src = p.imgFallback;
+  document.getElementById("detail-name").textContent = p.name;
+  document.getElementById("detail-price").textContent = formatPrice(p.price);
   document.getElementById("detail-old-price").textContent = p.oldPrice ? formatPrice(p.oldPrice) : "";
-  document.getElementById("detail-desc").textContent   = p.fullDesc;
-  document.getElementById("detail-cat-badge").textContent = p.category;
-  document.getElementById("detail-breadcrumb-cat").textContent = p.category;
+  document.getElementById("detail-desc").textContent = p.fullDesc;
+  // FIX: tab mô tả cũng cần được điền nội dung
+  document.getElementById("detail-desc-full").textContent = p.fullDesc;
+  document.getElementById("detail-cat-badge").textContent = catText;
+  document.getElementById("detail-breadcrumb-cat").textContent = catText;
   document.getElementById("detail-breadcrumb-name").textContent = p.name;
-  document.getElementById("detail-tags").innerHTML     = p.tags.map(t => `<span class="badge-tag">${t}</span>`).join("");
-  document.getElementById("detail-qty").value          = 1;
+  document.getElementById("detail-tags").innerHTML = p.tags.map(t =>
+    `<span class="badge-tag">${t}</span>`).join("");
+  document.getElementById("detail-qty").value = 1;
 
   // Thumbnails
   document.getElementById("detail-thumbs").innerHTML = [p.img, p.img, p.img].map((src, i) =>
     `<img src="${src}" onerror="this.src='${p.imgFallback}'"
           class="${i === 0 ? "active-thumb" : ""}"
-          onclick="switchThumb(this, '${src}')">`
+          onclick="switchThumb(this,'${src}')">`
   ).join("");
 
-  // Related
+  // Sản phẩm liên quan
   document.getElementById("related-grid").innerHTML =
     PRODUCTS.filter(x => x.id !== id).slice(0, 4).map(q => productCardHTML(q, "col-6 col-md-3")).join("");
 
@@ -89,27 +95,28 @@ function productCardHTML(p, colClass = "col-6 col-md-3") {
 }
 
 function renderHomeProducts() {
-  const hot  = PRODUCTS.filter(p => p.hot);
+  const hot = PRODUCTS.filter(p => p.hot);
   const newP = PRODUCTS.filter(p => !p.hot);
-  document.getElementById("home-hot-grid").innerHTML  = hot.map(p => productCardHTML(p)).join("");
-  document.getElementById("home-new-grid").innerHTML  = newP.slice(0, 4).map(p => productCardHTML(p)).join("");
+  document.getElementById("home-hot-grid").innerHTML = hot.map(p => productCardHTML(p)).join("");
+  document.getElementById("home-new-grid").innerHTML = newP.slice(0, 4).map(p => productCardHTML(p)).join("");
 }
 
 // ── Tìm kiếm ─────────────────────────────────────────────────────
 
 function handleSearch(val) {
   if (!val.trim()) return;
-  const q    = val.toLowerCase();
+  const q = val.toLowerCase();
+  // FIX: p.desc → p.fullDesc (không có field 'desc' trong data.js)
   const list = PRODUCTS.filter(p =>
     p.name.toLowerCase().includes(q) ||
-    p.desc.toLowerCase().includes(q) ||
+    p.fullDesc.toLowerCase().includes(q) ||
     p.tags.some(t => t.toLowerCase().includes(q))
   );
-  document.getElementById("cat-title").textContent      = `Kết quả: "${val}"`;
+  document.getElementById("cat-title").textContent = `Kết quả: "${val}"`;
   document.getElementById("cat-breadcrumb").textContent = "Tìm kiếm";
-  document.getElementById("cat-desc").textContent       = `Tìm thấy ${list.length} sản phẩm`;
-  document.getElementById("cat-count").textContent      = `Hiển thị ${list.length} sản phẩm`;
-  document.getElementById("cat-grid").innerHTML         = list.length
+  document.getElementById("cat-desc").textContent = `Tìm thấy ${list.length} sản phẩm`;
+  document.getElementById("cat-count").textContent = `Hiển thị ${list.length} sản phẩm`;
+  document.getElementById("cat-grid").innerHTML = list.length
     ? list.map(p => productCardHTML(p)).join("")
     : `<div class="col-12 text-center py-5 text-muted">
          <i class="bi bi-search" style="font-size:3rem;color:#f0c0d0;"></i>
@@ -121,12 +128,14 @@ function handleSearch(val) {
 function sortProducts(type, btn) {
   document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
-  const cat  = document.getElementById("cat-title").textContent;
-  let list   = PRODUCTS.filter(p => p.category === cat);
+  const cat = document.getElementById("cat-title").textContent;
+  let list = PRODUCTS.filter(p =>
+    Array.isArray(p.category) ? p.category.includes(cat) : p.category === cat
+  );
   if (!list.length) list = [...PRODUCTS];
-  if (type === "price-asc")  list = [...list].sort((a, b) => a.price - b.price);
+  if (type === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
   if (type === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
-  if (type === "name")       list = [...list].sort((a, b) => a.name.localeCompare(b.name, "vi"));
+  if (type === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name, "vi"));
   document.getElementById("cat-grid").innerHTML = list.map(p => productCardHTML(p)).join("");
 }
 
@@ -159,17 +168,16 @@ function buyNow() {
 }
 
 // ── Tài khoản ────────────────────────────────────────────────────
-
 let _currentUser = null;
 
 function renderAccount() {
   if (_currentUser) {
-    document.getElementById("account-login-view").style.display     = "none";
+    document.getElementById("account-login-view").style.display = "none";
     document.getElementById("account-dashboard-view").style.display = "";
-    document.getElementById("user-display-name").textContent        = _currentUser;
+    document.getElementById("user-display-name").textContent = _currentUser;
     renderOrderHistory();
   } else {
-    document.getElementById("account-login-view").style.display     = "";
+    document.getElementById("account-login-view").style.display = "";
     document.getElementById("account-dashboard-view").style.display = "none";
   }
 }
@@ -184,11 +192,11 @@ function doLogin() {
 }
 
 function doRegister() {
-  const name   = document.getElementById("reg-name").value.trim();
-  const email  = document.getElementById("reg-email").value.trim();
+  const name = document.getElementById("reg-name").value.trim();
+  const email = document.getElementById("reg-email").value.trim();
   const agreed = document.getElementById("agree-terms").checked;
   if (!name || !email) { showToast("⚠️ Vui lòng nhập đầy đủ!"); return; }
-  if (!agreed)         { showToast("⚠️ Vui lòng đồng ý điều khoản!"); return; }
+  if (!agreed) { showToast("⚠️ Vui lòng đồng ý điều khoản!"); return; }
   _currentUser = name;
   showToast("🎉 Đăng ký thành công! Chào " + name);
   renderAccount();
@@ -201,7 +209,7 @@ function doLogout() {
 }
 
 function renderOrderHistory() {
-  const el      = document.getElementById("order-history-list");
+  const el = document.getElementById("order-history-list");
   const history = JSON.parse(localStorage.getItem("hoatuoi_orders") || "[]");
   if (!history.length) {
     el.innerHTML = `<div class="text-center py-5">
@@ -212,7 +220,7 @@ function renderOrderHistory() {
     return;
   }
   const badges = { pending: "badge-pending", processing: "badge-processing", delivered: "badge-delivered" };
-  const labels = { pending: "Chờ xác nhận", processing: "Đang giao",       delivered: "Đã giao" };
+  const labels = { pending: "Chờ xác nhận", processing: "Đang giao", delivered: "Đã giao" };
   el.innerHTML = history.map(o => `
     <div class="order-history-item">
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
@@ -236,7 +244,7 @@ function renderOrderHistory() {
 }
 
 function switchAccountTab(tab, el) {
-  ["orders","profile","address","wishlist","password"].forEach(t => {
+  ["orders", "profile", "address", "wishlist", "password"].forEach(t => {
     const tabEl = document.getElementById("tab-" + t);
     if (tabEl) tabEl.style.display = "none";
   });
@@ -247,7 +255,7 @@ function switchAccountTab(tab, el) {
 }
 
 function switchAuthTab(tab, el) {
-  document.getElementById("auth-login").style.display    = tab === "login"    ? "" : "none";
+  document.getElementById("auth-login").style.display = tab === "login" ? "" : "none";
   document.getElementById("auth-register").style.display = tab === "register" ? "" : "none";
   document.querySelectorAll("#auth-tab-nav .nav-link").forEach(l => l.classList.remove("active"));
   el.classList.add("active");
@@ -261,7 +269,7 @@ function formatPrice(n) {
 }
 
 function showToast(msg) {
-  const box   = document.getElementById("toast-container");
+  const box = document.getElementById("toast-container");
   const toast = document.createElement("div");
   toast.className = "toast-custom";
   toast.innerHTML = `<div class="toast-icon">🌸</div><div style="font-size:.9rem;">${msg}</div>`;
@@ -274,7 +282,7 @@ function showToast(msg) {
 
 function togglePass(inputId, icon) {
   const el = document.getElementById(inputId);
-  el.type  = el.type === "password" ? "text" : "password";
+  el.type = el.type === "password" ? "text" : "password";
   icon.classList.toggle("bi-eye");
   icon.classList.toggle("bi-eye-slash");
 }
@@ -287,21 +295,15 @@ function scrollToProducts() {
 
 document.addEventListener("DOMContentLoaded", () => {
   cartUpdateBadge();
-  renderHomeProducts();
+  if (document.getElementById("home-hot-grid")) renderHomeProducts();
 
-  // Floating cart: hiện nếu có hàng
-  if (cartCount() > 0) {
-    document.getElementById("floating-cart-btn").style.display = "";
-  }
-
-  // Subscribe footer
   document.getElementById("subscribe-btn")?.addEventListener("click", () => {
     const emailEl = document.getElementById("subscribe-email");
     if (!emailEl.value.includes("@")) {
       emailEl.style.borderColor = "red"; return;
     }
     emailEl.style.borderColor = "";
-    emailEl.value             = "";
+    emailEl.value = "";
     document.getElementById("subscribe-btn").textContent = "✓ Xong!";
     setTimeout(() => document.getElementById("subscribe-btn").textContent = "Đăng Ký", 2000);
     showToast("📧 Đăng ký nhận tin thành công!");

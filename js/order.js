@@ -1,11 +1,9 @@
-/* ================================================================
-   js/order.js — Gửi đơn hàng về Google Sheets
-   ================================================================ */
+/* js/order.js — Gửi đơn hàng về Google Sheets */
 
 function placeOrder() {
   // Validate
-  const name    = document.getElementById("recv-name").value.trim();
-  const phone   = document.getElementById("recv-phone").value.trim();
+  const name = document.getElementById("recv-name").value.trim();
+  const phone = document.getElementById("recv-phone").value.trim();
   const address = document.getElementById("recv-address").value.trim();
 
   if (!name || !phone || !address) {
@@ -22,70 +20,69 @@ function placeOrder() {
     return;
   }
 
+  // Tạo mã đơn hàng 1 lần duy nhất ở client, gửi lên server để dùng chung
+  const orderCode = "HV-" + Math.floor(100000 + Math.random() * 900000);
+
   // Thu thập dữ liệu
   const orderData = {
+    orderCode,
     name,
     phone,
-    email:          document.getElementById("recv-email").value.trim(),
+    email: document.getElementById("recv-email").value.trim(),
     address,
-    district:       document.getElementById("recv-district").value,
-    deliveryDate:   document.getElementById("delivery-date").value,
-    deliveryTime:   document.getElementById("delivery-time").value,
-    message:        document.getElementById("card-message").value.trim(),
-    paymentMethod:  getSelectedPayment(),
-    items:          cartLoad(),
-    subtotal:       cartSubtotal(),
-    discount:       _cartDiscount,
-    total:          cartTotal(_cartDiscount),
+    district: document.getElementById("recv-district").value,
+    deliveryDate: document.getElementById("delivery-date").value,
+    deliveryTime: document.getElementById("delivery-time").value,
+    message: document.getElementById("card-message").value.trim(),
+    paymentMethod: getSelectedPayment(),
+    items: cartLoad(),
+    subtotal: cartSubtotal(),
+    discount: _cartDiscount,
+    total: cartTotal(_cartDiscount),
   };
 
   // UI: đang gửi
   const btn = document.getElementById("btn-place-order");
-  btn.disabled    = true;
+  btn.disabled = true;
   btn.textContent = "⏳ Đang gửi đơn hàng...";
 
   fetch(CONFIG.GOOGLE_SCRIPT_URL, {
-    method:  "POST",
-    mode:    "no-cors",         // Google Apps Script yêu cầu no-cors
+    method: "POST",
+    mode: "no-cors",         // Google Apps Script yêu cầu no-cors
     headers: { "Content-Type": "application/json" },
-    body:    JSON.stringify(orderData),
+    body: JSON.stringify(orderData),
   })
-  .then(() => {
-    // no-cors không trả về response body → coi như thành công
-    onOrderSuccess(orderData);
-  })
-  .catch(err => {
-    console.error(err);
-    showToast("❌ Gửi đơn thất bại, vui lòng thử lại!");
-    btn.disabled    = false;
-    btn.textContent = "Đặt Hàng Ngay";
-  });
+    .then(() => {
+      // no-cors không trả về response body → coi như thành công
+      onOrderSuccess(orderData);
+    })
+    .catch(err => {
+      console.error(err);
+      showToast("❌ Gửi đơn thất bại, vui lòng thử lại!");
+      btn.disabled = false;
+      btn.textContent = "Đặt Hàng Ngay";
+    });
 }
 
 function onOrderSuccess(orderData) {
-  // Tạo mã đơn hàng phía client (server cũng tạo riêng, chỉ để hiển thị)
-  const orderCode = "HV-" + Date.now().toString().slice(-6);
-
-  // Điền trang success
-  document.getElementById("success-order-code").textContent = orderCode;
-  document.getElementById("success-name").textContent       = orderData.name;
-  document.getElementById("success-phone").textContent      = orderData.phone;
-  document.getElementById("success-time").textContent       = orderData.deliveryDate + " lúc " + orderData.deliveryTime;
-  document.getElementById("success-total").textContent      = formatPrice(orderData.total);
+  // Dùng mã đã tạo từ trước (cùng mã đã gửi lên Google Sheets)
+  const orderCode = orderData.orderCode;
 
   // Lưu vào lịch sử đơn hàng local
   const history = JSON.parse(localStorage.getItem("hoatuoi_orders") || "[]");
   history.unshift({ ...orderData, orderCode, date: new Date().toLocaleDateString("vi-VN"), status: "pending" });
   localStorage.setItem("hoatuoi_orders", JSON.stringify(history));
 
+  // Lưu thông tin để trang thanhcong.html đọc
+  sessionStorage.setItem("lastOrder", JSON.stringify({ ...orderData, orderCode }));
+
   // Xóa giỏ hàng
   localStorage.removeItem(CART_KEY);
   _cartDiscount = 0;
   cartUpdateBadge();
-  document.getElementById("floating-cart-btn").style.display = "none";
 
-  showPage("success");
   showToast("🎉 Đặt hàng thành công! Mã: " + orderCode);
+  setTimeout(() => window.location.href = "thanhcong.html", 1200);
 }
 
 // ── Helper ───────────────────────────────────────────────────────

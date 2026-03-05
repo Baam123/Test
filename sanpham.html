@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoa Tươi Hy Vọng — Chi Tiết Sản Phẩm</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="./img/logo1.png" rel="icon" type="image/x-icon" />
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <div class="container py-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+        <li class="breadcrumb-item">
+          <a href="danhmuc.html" id="detail-breadcrumb-cat">Danh mục</a>
+        </li>
+        <li class="breadcrumb-item active" id="detail-breadcrumb-name">Sản phẩm</li>
+      </ol>
+    </nav>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-5">
+        <div class="detail-img-wrap mb-3"><img src="" alt="" id="detail-img"></div>
+        <div class="thumbnail-row d-flex gap-2 flex-wrap" id="detail-thumbs"></div>
+      </div>
+      <div class="col-12 col-md-7">
+        <span class="badge-tag mb-2 d-inline-block" id="detail-cat-badge"></span>
+        <h1 class="detail-title mb-2" id="detail-name"></h1>
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span>⭐⭐⭐⭐⭐</span>
+          <span class="text-muted" style="font-size:.85rem;">(128 đánh giá)</span>
+        </div>
+        <div class="mb-3">
+          <span class="detail-price" id="detail-price"></span>
+          <span class="detail-price-old" id="detail-old-price"></span>
+        </div>
+        <p class="text-muted" id="detail-desc" style="font-size:.95rem;line-height:1.7;"></p>
+        <div class="d-flex gap-2 flex-wrap mb-2" id="detail-tags"></div>
+        <hr style="border-color:#f0c0d0;">
+        <div class="mb-3">
+          <div class="fw-bold mb-2">Số lượng:</div>
+          <div class="qty-control">
+            <button onclick="changeQty(-1)">−</button>
+            <input type="number" id="detail-qty" value="1" min="1">
+            <button onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+        <div class="d-flex gap-3 flex-wrap mb-4">
+          <button class="btn-add-cart" onclick="addToCartFromDetail()">
+            <i class="bi bi-cart-plus me-2"></i>Thêm vào giỏ
+          </button>
+          <button class="btn-buy-now" onclick="buyNow()">
+            <i class="bi bi-lightning-fill me-2"></i>Mua ngay
+          </button>
+        </div>
+        <div class="d-flex gap-4 text-muted flex-wrap" style="font-size:.85rem;">
+          <span><i class="bi bi-truck me-1" style="color:var(--pink-main);"></i>Freeship nội thành</span>
+          <span><i class="bi bi-gift me-1" style="color:var(--pink-main);"></i>Tặng thiệp miễn phí</span>
+          <span><i class="bi bi-arrow-counterclockwise me-1" style="color:var(--pink-main);"></i>Đổi trả 24h</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs mô tả -->
+    <div class="mt-5">
+      <ul class="nav detail-info-tab border-bottom mb-3">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" onclick="switchDetailTab(this,'tab-desc');return false;">Mô tả</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="switchDetailTab(this,'tab-care');return false;">Cách chăm sóc</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="switchDetailTab(this,'tab-review');return false;">Đánh giá (128)</a>
+        </li>
+      </ul>
+      <div id="tab-desc">
+        <p id="detail-desc-full" style="line-height:1.8;color:#555;"></p>
+      </div>
+      <div id="tab-care" style="display:none;">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div style="background:#fff8fc;border-radius:12px;padding:16px;border:1px solid #f0c0d0;">
+              <h6 style="color:var(--pink-dark);font-weight:700;"><i class="bi bi-droplet-fill me-2"></i>Tưới nước</h6>
+              <p class="text-muted mb-0" style="font-size:.9rem;">Thay nước bình mỗi 1-2 ngày. Cắt chéo cuống hoa trước khi cắm.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="background:#fff8fc;border-radius:12px;padding:16px;border:1px solid #f0c0d0;">
+              <h6 style="color:var(--pink-dark);font-weight:700;"><i class="bi bi-sun-fill me-2"></i>Ánh sáng</h6>
+              <p class="text-muted mb-0" style="font-size:.9rem;">Đặt hoa nơi ánh sáng nhẹ, tránh nắng trực tiếp. Nhiệt độ 18-25°C.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="background:#fff8fc;border-radius:12px;padding:16px;border:1px solid #f0c0d0;">
+              <h6 style="color:var(--pink-dark);font-weight:700;"><i class="bi bi-scissors me-2"></i>Tỉa lá</h6>
+              <p class="text-muted mb-0" style="font-size:.9rem;">Loại bỏ lá dưới mực nước. Tỉa cánh hoa héo để kéo dài tuổi thọ.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="background:#fff8fc;border-radius:12px;padding:16px;border:1px solid #f0c0d0;">
+              <h6 style="color:var(--pink-dark);font-weight:700;"><i class="bi bi-thermometer-half me-2"></i>Bảo quản</h6>
+              <p class="text-muted mb-0" style="font-size:.9rem;">Tránh gần quạt, điều hòa. Hoa tươi 5-7 ngày nếu chăm sóc đúng.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-review" style="display:none;">
+        <div style="background:#fff8fc;border-radius:12px;padding:16px;border:1px solid #f0c0d0;margin-bottom:12px;">
+          <div class="d-flex justify-content-between mb-1">
+            <strong>Nguyễn Thị Lan</strong>
+            <span class="text-muted" style="font-size:.8rem;">15/01/2025</span>
+          </div>
+          <div style="color:#FFB347;">⭐⭐⭐⭐⭐</div>
+          <p class="text-muted mb-0 mt-1" style="font-size:.9rem;">Hoa rất đẹp, tươi lâu và đóng gói cẩn thận. Giao hàng đúng giờ!</p>
+        </div>
+        <div style="background:#fff8fc;border-radius:12px;padding:16px;border:1px solid #f0c0d0;">
+          <div class="d-flex justify-content-between mb-1">
+            <strong>Trần Văn Minh</strong>
+            <span class="text-muted" style="font-size:.8rem;">10/01/2025</span>
+          </div>
+          <div style="color:#FFB347;">⭐⭐⭐⭐⭐</div>
+          <p class="text-muted mb-0 mt-1" style="font-size:.9rem;">Mua làm quà sinh nhật, bạn gái rất thích. Hoa tươi và thơm!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sản phẩm liên quan -->
+    <div class="mt-5">
+      <h4 style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Sản phẩm liên quan</h4>
+      <div class="row g-3 mt-2" id="related-grid"></div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    function formatPrice(n) {
+      return Number(n).toLocaleString("vi-VN") + " VND";
+    }
+
+    function showToast(msg) {
+      const box   = document.getElementById("toast-container");
+      if (!box) return;
+      const toast = document.createElement("div");
+      toast.className = "toast-custom";
+      toast.innerHTML = `<div class="toast-icon">🌸</div><div style="font-size:.9rem;">${msg}</div>`;
+      box.appendChild(toast);
+      setTimeout(() => {
+        toast.style.cssText += "opacity:0;transform:translateX(100px);transition:.3s;";
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    function productCardHTML(p, colClass = "col-6 col-md-3") {
+      return `
+      <div class="${colClass}">
+        <div class="card product-card h-100" onclick="window.location.href='sanpham.html?id=${p.id}'">
+          <img src="${p.img}" onerror="this.src='${p.imgFallback}'" class="card-img-top" alt="${p.name}">
+          <div class="card-body d-flex flex-column align-items-center">
+            <h5 class="card-title">${p.name}</h5>
+            ${p.oldPrice ? `<del class="text-muted" style="font-size:.82rem;">${formatPrice(p.oldPrice)}</del>` : ""}
+            <p class="price">${formatPrice(p.price)}</p>
+            <button class="btn-order mt-auto"
+                    onclick="event.stopPropagation(); cartAdd(${p.id})">
+              Đặt hàng
+            </button>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function switchDetailTab(el, tabId) {
+      ["tab-desc", "tab-care", "tab-review"].forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+      document.getElementById(tabId).style.display = "block";
+      document.querySelectorAll(".detail-info-tab .nav-link").forEach(l => l.classList.remove("active"));
+      el.classList.add("active");
+      return false;
+    }
+
+    function changeQty(delta) {
+      const el = document.getElementById("detail-qty");
+      el.value = Math.max(1, (parseInt(el.value) || 1) + delta);
+    }
+
+    function addToCartFromDetail() {
+      if (!window._currentProduct) return;
+      const qty = parseInt(document.getElementById("detail-qty").value) || 1;
+      cartAdd(window._currentProduct.id, qty);
+    }
+
+    function buyNow() {
+      addToCartFromDetail();
+      window.location.href = "thanhtoan.html";
+    }
+
+    function handleSearch(val) {
+      if (!val.trim()) return;
+      window.location.href = "danhmuc.html?search=" + encodeURIComponent(val);
+    }
+
+    function switchThumb(el, src) {
+      document.getElementById("detail-img").src = src;
+      document.querySelectorAll(".thumbnail-row img").forEach(i => i.classList.remove("active-thumb"));
+      el.classList.add("active-thumb");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      cartUpdateBadge();
+      if (cartCount() > 0) {
+        setTimeout(() => {
+          const btn = document.getElementById("floating-cart-btn");
+          if (btn) btn.style.display = "";
+        }, 150);
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const id     = parseInt(params.get("id"));
+      const p      = PRODUCTS.find(x => x.id === id);
+
+      if (!p) {
+        document.querySelector(".container").innerHTML =
+          `<div class="text-center py-5">
+             <p class="text-muted">Không tìm thấy sản phẩm.</p>
+             <a href="index.html" class="btn-order px-4 py-2">Về trang chủ</a>
+           </div>`;
+        return;
+      }
+
+      window._currentProduct = p;
+      document.title = p.name + " — Hoa Tươi Hy Vọng";
+
+      const catText = Array.isArray(p.category) ? p.category[0] : p.category;
+      const catHref = "danhmuc.html?cat=" + encodeURIComponent(catText);
+
+      document.getElementById("detail-breadcrumb-cat").textContent = catText;
+      document.getElementById("detail-breadcrumb-cat").href        = catHref;
+      document.getElementById("detail-breadcrumb-name").textContent = p.name;
+      document.getElementById("detail-img").src = p.img;
+      document.getElementById("detail-img").onerror = () =>
+        document.getElementById("detail-img").src = p.imgFallback;
+      document.getElementById("detail-name").textContent      = p.name;
+      document.getElementById("detail-price").textContent     = formatPrice(p.price);
+      document.getElementById("detail-old-price").textContent = p.oldPrice ? formatPrice(p.oldPrice) : "";
+      document.getElementById("detail-desc").textContent      = p.fullDesc;
+      document.getElementById("detail-desc-full").textContent = p.fullDesc;   // FIX: điền tab mô tả
+      document.getElementById("detail-cat-badge").textContent = Array.isArray(p.category) ? p.category.join(", ") : p.category;
+      document.getElementById("detail-tags").innerHTML = p.tags.map(t => `<span class="badge-tag">${t}</span>`).join("");
+
+      // Thumbnails
+      document.getElementById("detail-thumbs").innerHTML = [p.img, p.img, p.img].map((src, i) =>
+        `<img src="${src}" onerror="this.src='${p.imgFallback}'"
+              class="${i === 0 ? "active-thumb" : ""}"
+              onclick="switchThumb(this,'${src}')">`
+      ).join("");
+
+      // Sản phẩm liên quan
+      document.getElementById("related-grid").innerHTML =
+        PRODUCTS.filter(x => x.id !== id).slice(0, 4).map(q => productCardHTML(q, "col-6 col-md-3")).join("");
+    });
+  </script>
+</body>
+</html>

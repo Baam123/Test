@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoa Tươi Hy Vọng — Tài Khoản</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="./img/logo1.png" rel="icon" type="image/x-icon" />
+</head>
+
+<body>
+
+  <div id="site-header"></div>
+
+  <!-- ── Chưa đăng nhập ── -->
+  <div id="account-login-view">
+    <div class="page-header-banner">
+      <div class="container">
+        <h1>👤 Tài Khoản</h1>
+      </div>
+    </div>
+    <div class="container py-5">
+      <div class="auth-card">
+        <div style="text-align:center;font-size:2.5rem;margin-bottom:6px;">🌸</div>
+        <h2>Chào mừng trở lại</h2>
+        <p class="text-muted text-center" style="font-size:.9rem;margin-bottom:20px;">Đăng nhập để quản lý đơn hàng</p>
+        <ul class="nav auth-tabs justify-content-center mb-4" id="auth-tab-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" onclick="switchAuthTab('login',this);return false;">Đăng Nhập</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="switchAuthTab('register',this);return false;">Đăng Ký</a>
+          </li>
+        </ul>
+
+        <!-- Form đăng nhập -->
+        <div id="auth-login">
+          <div class="mb-3">
+            <label class="form-label">Email hoặc SĐT</label>
+            <input type="text" class="form-control" id="login-user" placeholder="email@example.com">
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Mật khẩu</label>
+            <div class="position-relative">
+              <input type="password" class="form-control" id="login-pass" placeholder="••••••••">
+              <i class="bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3"
+                style="cursor:pointer;color:#aaa;" onclick="togglePass('login-pass',this)"></i>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end mb-3">
+            <a href="#" style="font-size:.85rem;color:var(--pink-main);text-decoration:none;">Quên mật khẩu?</a>
+          </div>
+          <button class="btn-order w-100 py-2 mb-3" style="font-size:1rem;" onclick="doLogin()">Đăng Nhập</button>
+          <div class="auth-divider"><span>hoặc</span></div>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn-social flex-fill"><i class="bi bi-google" style="color:#ea4335;"></i> Google</button>
+            <button class="btn-social flex-fill"><i class="bi bi-facebook" style="color:#1877f2;"></i> Facebook</button>
+          </div>
+        </div>
+
+        <!-- Form đăng ký -->
+        <div id="auth-register" style="display:none;">
+          <div class="row g-2 mb-2">
+            <div class="col-6"><label class="form-label">Họ</label><input type="text" class="form-control" id="reg-ho"
+                placeholder="Nguyễn"></div>
+            <div class="col-6"><label class="form-label">Tên</label><input type="text" class="form-control" id="reg-ten"
+                placeholder="Thị Hoa"></div>
+          </div>
+          <div class="mb-2"><label class="form-label">Email</label><input type="email" class="form-control"
+              id="reg-email" placeholder="email@example.com"></div>
+          <div class="mb-2"><label class="form-label">SĐT</label><input type="tel" class="form-control" id="reg-phone"
+              placeholder="0123 456 789"></div>
+          <div class="mb-3"><label class="form-label">Mật khẩu</label><input type="password" class="form-control"
+              placeholder="Tối thiểu 8 ký tự"></div>
+          <div class="mb-3 d-flex align-items-center gap-2">
+            <input type="checkbox" id="agree-terms" style="accent-color:var(--pink-main);width:16px;height:16px;">
+            <label for="agree-terms" style="font-size:.85rem;color:#555;">Tôi đồng ý với <a href="#"
+                style="color:var(--pink-main);">Điều khoản</a></label>
+          </div>
+          <button class="btn-order w-100 py-2" style="font-size:1rem;" onclick="doRegister()">Tạo Tài Khoản</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Đã đăng nhập ── -->
+  <div id="account-dashboard-view" style="display:none;">
+    <div class="page-header-banner">
+      <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+          <h1>👤 Tài Khoản Của Tôi</h1>
+          <p class="text-muted mb-0">Xin chào, <strong id="user-display-name"></strong>! 🌸</p>
+        </div>
+        <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="doLogout()">
+          <i class="bi bi-box-arrow-right me-1"></i>Đăng xuất
+        </button>
+      </div>
+    </div>
+    <div class="container py-4">
+      <div class="row g-4">
+        <div class="col-12 col-md-3">
+          <div class="account-sidebar">
+            <div class="account-menu-item active" onclick="switchAccountTab('orders',this)">
+              <i class="bi bi-bag-check"></i>Đơn hàng của tôi
+            </div>
+            <div class="account-menu-item" onclick="switchAccountTab('profile',this)">
+              <i class="bi bi-person-circle"></i>Thông tin cá nhân
+            </div>
+            <div class="account-menu-item" onclick="switchAccountTab('address',this)">
+              <i class="bi bi-geo-alt"></i>Địa chỉ giao hàng
+            </div>
+            <div class="account-menu-item" onclick="switchAccountTab('password',this)">
+              <i class="bi bi-lock"></i>Đổi mật khẩu
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+
+          <!-- Tab đơn hàng -->
+          <div id="tab-orders" class="account-content">
+            <h5><i class="bi bi-bag-check me-2"></i>Đơn hàng của tôi</h5>
+            <div id="order-history-list"></div>
+          </div>
+
+          <!-- Tab thông tin -->
+          <div id="tab-profile" class="account-content" style="display:none;">
+            <h5><i class="bi bi-person-circle me-2"></i>Thông tin cá nhân</h5>
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Họ và tên</label><input type="text" class="form-control"
+                  id="profile-name" placeholder="Nguyễn Thị Hoa"></div>
+              <div class="col-md-6"><label class="form-label">SĐT</label><input type="tel" class="form-control"
+                  placeholder="0123 456 789"></div>
+              <div class="col-md-6"><label class="form-label">Email</label><input type="email" class="form-control"
+                  placeholder="email@example.com"></div>
+              <div class="col-md-6"><label class="form-label">Ngày sinh</label><input type="date" class="form-control">
+              </div>
+              <div class="col-12"><button class="btn-order px-4 py-2" onclick="showToast('Cập nhật thành công! 🌸')">Lưu
+                  thay đổi</button></div>
+            </div>
+          </div>
+
+          <!-- Tab địa chỉ -->
+          <div id="tab-address" class="account-content" style="display:none;">
+            <h5><i class="bi bi-geo-alt me-2"></i>Địa chỉ giao hàng</h5>
+            <div
+              style="border:2px dashed #f0c0d0;border-radius:12px;padding:24px;text-align:center;color:#aaa;cursor:pointer;"
+              onclick="showToast('Tính năng đang phát triển!')">
+              <i class="bi bi-plus-circle" style="font-size:2rem;color:var(--pink-main);"></i>
+              <p class="mt-2 mb-0">Thêm địa chỉ mới</p>
+            </div>
+          </div>
+
+          <!-- Tab đổi mật khẩu -->
+          <div id="tab-password" class="account-content" style="display:none;">
+            <h5><i class="bi bi-lock me-2"></i>Đổi mật khẩu</h5>
+            <div style="max-width:400px;">
+              <div class="mb-3"><label class="form-label">Mật khẩu hiện tại</label><input type="password"
+                  class="form-control" placeholder="••••••••"></div>
+              <div class="mb-3"><label class="form-label">Mật khẩu mới</label><input type="password"
+                  class="form-control" placeholder="••••••••"></div>
+              <div class="mb-3"><label class="form-label">Xác nhận mật khẩu mới</label><input type="password"
+                  class="form-control" placeholder="••••••••"></div>
+              <button class="btn-order px-4 py-2" onclick="showToast('Đổi mật khẩu thành công! 🔒')">Cập nhật</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    function formatPrice(n) { return Number(n).toLocaleString("vi-VN") + " VND"; }
+
+    function showToast(msg) {
+      const box = document.getElementById("toast-container");
+      if (!box) return;
+      const toast = document.createElement("div");
+      toast.className = "toast-custom";
+      toast.innerHTML = `<div class="toast-icon">🌸</div><div style="font-size:.9rem;">${msg}</div>`;
+      box.appendChild(toast);
+      setTimeout(() => {
+        toast.style.cssText += "opacity:0;transform:translateX(100px);transition:.3s;";
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    function handleSearch(val) {
+      if (!val.trim()) return;
+      window.location.href = "danhmuc.html?search=" + encodeURIComponent(val);
+    }
+
+    function togglePass(inputId, icon) {
+      const el = document.getElementById(inputId);
+      el.type = el.type === "password" ? "text" : "password";
+      icon.classList.toggle("bi-eye");
+      icon.classList.toggle("bi-eye-slash");
+    }
+
+    function switchAuthTab(tab, el) {
+      document.getElementById("auth-login").style.display = tab === "login" ? "" : "none";
+      document.getElementById("auth-register").style.display = tab === "register" ? "" : "none";
+      document.querySelectorAll("#auth-tab-nav .nav-link").forEach(l => l.classList.remove("active"));
+      el.classList.add("active");
+      return false;
+    }
+
+    function switchAccountTab(tab, el) {
+      ["orders", "profile", "address", "password"].forEach(t => {
+        const tabEl = document.getElementById("tab-" + t);
+        if (tabEl) tabEl.style.display = "none";
+      });
+      const show = document.getElementById("tab-" + tab);
+      if (show) show.style.display = "";
+      document.querySelectorAll(".account-menu-item").forEach(i => i.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    function doLogin() {
+      const user = document.getElementById("login-user").value.trim();
+      const pass = document.getElementById("login-pass").value;
+      if (!user || !pass) { showToast("⚠️ Vui lòng nhập đầy đủ!"); return; }
+      const name = user.includes("@") ? user.split("@")[0] : user;
+      authSetUser({ name, email: user.includes("@") ? user : "" });
+      showToast("✅ Đăng nhập thành công! Chào " + name);
+      renderAccount();
+      // Cập nhật header
+      setTimeout(() => renderHeader(), 100);
+    }
+
+    function doRegister() {
+      const ho = document.getElementById("reg-ho").value.trim();
+      const ten = document.getElementById("reg-ten").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const agreed = document.getElementById("agree-terms").checked;
+      if (!ten || !email) { showToast("⚠️ Vui lòng nhập đầy đủ!"); return; }
+      if (!agreed) { showToast("⚠️ Vui lòng đồng ý điều khoản!"); return; }
+      const name = (ho + " " + ten).trim();
+      authSetUser({ name, email });
+      showToast("🎉 Đăng ký thành công! Chào " + name);
+      renderAccount();
+      setTimeout(() => renderHeader(), 100);
+    }
+
+    function doLogout() {
+      authLogout();
+      showToast("👋 Đã đăng xuất!");
+      renderAccount();
+      setTimeout(() => renderHeader(), 100);
+    }
+
+    function renderAccount() {
+      const user = authGetUser();
+      if (user) {
+        document.getElementById("account-login-view").style.display = "none";
+        document.getElementById("account-dashboard-view").style.display = "";
+        document.getElementById("user-display-name").textContent = user.name;
+        // Điền tên vào form profile
+        const profileName = document.getElementById("profile-name");
+        if (profileName) profileName.value = user.name;
+        renderOrderHistory();
+      } else {
+        document.getElementById("account-login-view").style.display = "";
+        document.getElementById("account-dashboard-view").style.display = "none";
+      }
+    }
+
+    function renderOrderHistory() {
+      const el = document.getElementById("order-history-list");
+      const history = JSON.parse(localStorage.getItem("hoatuoi_orders") || "[]");
+      if (!history.length) {
+        el.innerHTML = `<div class="text-center py-5">
+          <i class="bi bi-bag" style="font-size:3rem;color:#f0c0d0;"></i>
+          <p class="text-muted mt-3">Chưa có đơn hàng nào</p>
+          <a href="index.html" class="btn-order px-4 py-2 d-inline-block">Mua sắm ngay</a>
+        </div>`;
+        return;
+      }
+      const badges = { pending: "badge-pending", processing: "badge-processing", delivered: "badge-delivered" };
+      const labels = { pending: "Chờ xác nhận", processing: "Đang giao", delivered: "Đã giao" };
+      el.innerHTML = history.map(o => `
+        <div class="order-history-item">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+            <div>
+              <div class="fw-bold" style="color:var(--pink-dark);">${o.orderCode}</div>
+              <div class="text-muted" style="font-size:.82rem;">Đặt ngày ${o.date}</div>
+            </div>
+            <span class="badge-status ${badges[o.status] || 'badge-pending'}">${labels[o.status] || 'Chờ xác nhận'}</span>
+          </div>
+          <div class="d-flex gap-2 mb-2 flex-wrap">
+            ${o.items.slice(0, 3).map(i => `
+              <img src="${i.img}" onerror="this.src='${i.imgFallback}'"
+                   style="width:48px;height:48px;object-fit:cover;border-radius:8px;">`).join("")}
+            ${o.items.length > 3 ? `<div style="width:48px;height:48px;background:var(--pink-light);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--pink-dark);font-weight:700;">+${o.items.length - 3}</div>` : ""}
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted" style="font-size:.85rem;">${o.items.length} sản phẩm • ${o.deliveryDate || ''}</span>
+            <span class="fw-bold" style="color:var(--pink-dark);">${formatPrice(o.total)}</span>
+          </div>
+        </div>`).join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      cartUpdateBadge();
+      renderAccount();
+
+      // Xử lý ?tab=register từ header dropdown
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get("tab");
+      if (tab === "register") {
+        const regLink = document.querySelector("#auth-tab-nav .nav-link:last-child");
+        if (regLink) switchAuthTab("register", regLink);
+      }
+    });
+  </script>
+</body>
+
+</html>

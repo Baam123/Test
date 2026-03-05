@@ -1,11 +1,9 @@
-/* ================================================================
-   js/cart.js — Giỏ hàng dùng localStorage
-   Tải lại trang vẫn còn dữ liệu
-   ================================================================ */
+/* js/cart.js — Giỏ hàng dùng localStorage
+   Tải lại trang vẫn còn dữ liệu */
 
 const CART_KEY = "hoatuoi_cart";
 
-// ── Đọc / ghi localStorage ──────────────────────────────────────
+// Đọc, ghi localStorage 
 
 function cartLoad() {
   try {
@@ -19,7 +17,7 @@ function cartSave(items) {
   localStorage.setItem(CART_KEY, JSON.stringify(items));
 }
 
-// ── Thêm vào giỏ ────────────────────────────────────────────────
+// Thêm vào giỏ
 
 function cartAdd(productId, qty = 1) {
   const product = PRODUCTS.find(p => p.id === productId);
@@ -32,10 +30,10 @@ function cartAdd(productId, qty = 1) {
     existing.qty += qty;
   } else {
     items.push({
-      id:    product.id,
-      name:  product.name,
+      id: product.id,
+      name: product.name,
       price: product.price,
-      img:   product.img,
+      img: product.img,
       imgFallback: product.imgFallback,
       qty
     });
@@ -44,10 +42,9 @@ function cartAdd(productId, qty = 1) {
   cartSave(items);
   cartUpdateBadge();
   showToast(`✅ Đã thêm <strong>${product.name}</strong> vào giỏ!`);
-  document.getElementById("floating-cart-btn").style.display = "";
 }
 
-// ── Xóa / sửa ────────────────────────────────────────────────────
+// Xóa/sửa
 
 function cartRemove(productId) {
   cartSave(cartLoad().filter(i => i.id !== productId));
@@ -58,7 +55,7 @@ function cartRemove(productId) {
 function cartSetQty(productId, qty) {
   qty = Math.max(1, parseInt(qty) || 1);
   const items = cartLoad();
-  const item  = items.find(i => i.id === productId);
+  const item = items.find(i => i.id === productId);
   if (item) { item.qty = qty; cartSave(items); }
   cartUpdateBadge();
   renderCartPage();
@@ -66,7 +63,7 @@ function cartSetQty(productId, qty) {
 
 function cartChangeQty(productId, delta) {
   const items = cartLoad();
-  const item  = items.find(i => i.id === productId);
+  const item = items.find(i => i.id === productId);
   if (item) cartSetQty(productId, item.qty + delta);
 }
 
@@ -75,10 +72,9 @@ function cartClear() {
   localStorage.removeItem(CART_KEY);
   cartUpdateBadge();
   renderCartPage();
-  document.getElementById("floating-cart-btn").style.display = "none";
 }
 
-// ── Tính tổng ─────────────────────────────────────────────────────
+// Tính tổng
 
 function cartSubtotal() {
   return cartLoad().reduce((s, i) => s + i.price * i.qty, 0);
@@ -92,15 +88,15 @@ function cartCount() {
   return cartLoad().reduce((s, i) => s + i.qty, 0);
 }
 
-// ── Cập nhật badge ────────────────────────────────────────────────
+// Cập nhật badge
 
 function cartUpdateBadge() {
   const n = cartCount();
-  document.getElementById("cart-count").textContent          = n;
-  document.getElementById("floating-cart-count").textContent = n;
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) cartCountEl.textContent = n;
 }
 
-// ── Render trang giỏ hàng ────────────────────────────────────────
+// Render trang giỏ hàng
 
 function renderCartPage() {
   const items = cartLoad();
@@ -152,27 +148,27 @@ function renderCartPage() {
   updateCartSummary();
 }
 
-// ── Cập nhật tóm tắt giỏ ─────────────────────────────────────────
+// Cập nhật tóm tắt giỏ hàng
 
 let _cartDiscount = 0;
 
 function updateCartSummary() {
   const subtotal = cartSubtotal();
-  const total    = cartTotal(_cartDiscount);
+  const total = cartTotal(_cartDiscount);
 
   const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  setEl("cart-subtotal",   formatPrice(subtotal));
-  setEl("cart-discount",   _cartDiscount > 0 ? "-" + formatPrice(_cartDiscount) : "0 VND");
-  setEl("cart-total",      formatPrice(total));
+  setEl("cart-subtotal", formatPrice(subtotal));
+  setEl("cart-discount", _cartDiscount > 0 ? "-" + formatPrice(_cartDiscount) : "0 VND");
+  setEl("cart-total", formatPrice(total));
   setEl("checkout-subtotal", formatPrice(subtotal));
   setEl("checkout-discount", _cartDiscount > 0 ? "-" + formatPrice(_cartDiscount) : "0 VND");
-  setEl("checkout-total",    formatPrice(total));
+  setEl("checkout-total", formatPrice(total));
 }
 
-// ── Áp dụng mã giảm giá ─────────────────────────────────────────
+// Áp dụng mã giảm giá
 
 function applyCoupon() {
-  const code  = document.getElementById("coupon-input").value.trim().toUpperCase();
+  const code = document.getElementById("coupon-input").value.trim().toUpperCase();
   const msgEl = document.getElementById("coupon-msg");
   const coupon = CONFIG.COUPONS[code];
 
@@ -186,11 +182,11 @@ function applyCoupon() {
   updateCartSummary();
 }
 
-// ── Render phần tóm tắt trong checkout ──────────────────────────
+// Render phần tóm tắt trong checkout
 
 function renderCheckoutItems() {
   const items = cartLoad();
-  const el    = document.getElementById("checkout-order-items");
+  const el = document.getElementById("checkout-order-items");
   if (!el) return;
 
   el.innerHTML = items.length === 0

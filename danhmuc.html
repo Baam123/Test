@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoa Tươi Hy Vọng — Danh Mục</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="site-header"></div>
+
+  <div class="page-header-banner">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+          <li class="breadcrumb-item active" id="cat-breadcrumb">Danh mục</li>
+        </ol>
+      </nav>
+      <h1 id="cat-title">Danh Mục Sản Phẩm</h1>
+      <p class="text-muted mb-0" id="cat-desc"></p>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <div class="filter-bar d-flex flex-wrap align-items-center gap-3">
+      <span class="fw-bold text-muted">Sắp xếp:</span>
+      <button class="sort-btn active" onclick="sortProducts('default',this)">Mặc định</button>
+      <button class="sort-btn" onclick="sortProducts('price-asc',this)">Giá thấp → cao</button>
+      <button class="sort-btn" onclick="sortProducts('price-desc',this)">Giá cao → thấp</button>
+      <button class="sort-btn" onclick="sortProducts('name',this)">Tên A-Z</button>
+      <div class="ms-auto"><span class="text-muted" style="font-size:.85rem;" id="cat-count"></span></div>
+    </div>
+    <div class="row g-3" id="cat-grid"></div>
+    <div class="d-flex justify-content-center mt-4" id="pagination-wrap"></div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    const PAGE_SIZE = 12;
+    let _currentList = [];
+    let _currentPage = 1;
+
+    function formatPrice(n) {
+      return Number(n).toLocaleString("vi-VN") + " VND";
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById("toast-container");
+      if (!box) return;
+      const toast = document.createElement("div");
+      toast.className = "toast-custom";
+      toast.innerHTML = `<div class="toast-icon">🌸</div><div style="font-size:.9rem;">${msg}</div>`;
+      box.appendChild(toast);
+      setTimeout(() => {
+        toast.style.cssText += "opacity:0;transform:translateX(100px);transition:.3s;";
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    function productCardHTML(p, colClass = "col-6 col-md-3") {
+      return `
+      <div class="${colClass}">
+        <div class="card product-card h-100" onclick="window.location.href='sanpham.html?id=${p.id}'">
+          <img src="${p.img}" onerror="this.src='${p.imgFallback}'" class="card-img-top" alt="${p.name}">
+          <div class="card-body d-flex flex-column align-items-center">
+            <h5 class="card-title">${p.name}</h5>
+            ${p.oldPrice ? `<del class="text-muted" style="font-size:.82rem;">${formatPrice(p.oldPrice)}</del>` : ""}
+            <p class="price">${formatPrice(p.price)}</p>
+            <button class="btn-order mt-auto"
+                    onclick="event.stopPropagation(); cartAdd(${p.id})">
+              Đặt hàng
+            </button>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // ── Render trang hiện tại ────────────────────────────────────
+    function renderPage(page) {
+      _currentPage = page;
+      const totalPages = Math.ceil(_currentList.length / PAGE_SIZE);
+      const start = (page - 1) * PAGE_SIZE;
+      const slice = _currentList.slice(start, start + PAGE_SIZE);
+
+      document.getElementById("cat-count").textContent =
+        `Hiển thị ${start + 1}–${Math.min(start + PAGE_SIZE, _currentList.length)} / ${_currentList.length} sản phẩm`;
+
+      document.getElementById("cat-grid").innerHTML = slice.length
+        ? slice.map(p => productCardHTML(p)).join("")
+        : `<div class="col-12 text-center py-5 text-muted">
+             <i class="bi bi-search" style="font-size:3rem;color:#f0c0d0;"></i>
+             <p class="mt-3">Không có sản phẩm nào</p>
+           </div>`;
+
+      renderPagination(page, totalPages);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ── Render nút pagination ────────────────────────────────────
+    function renderPagination(page, totalPages) {
+      const wrap = document.getElementById("pagination-wrap");
+      if (totalPages <= 1) { wrap.innerHTML = ""; return; }
+
+      let html = `<nav><ul class="pagination">`;
+
+      // Nút «
+      html += `<li class="page-item ${page === 1 ? "disabled" : ""}">
+        <a class="page-link" href="#" onclick="event.preventDefault();${page > 1 ? `renderPage(${page - 1})` : ""}">«</a>
+      </li>`;
+
+      // Số trang — hiện tối đa 5 trang xung quanh trang hiện tại
+      const start = Math.max(1, page - 2);
+      const end = Math.min(totalPages, page + 2);
+
+      if (start > 1) {
+        html += `<li class="page-item"><a class="page-link" href="#" onclick="event.preventDefault();renderPage(1)">1</a></li>`;
+        if (start > 2) html += `<li class="page-item disabled"><a class="page-link">…</a></li>`;
+      }
+
+      for (let i = start; i <= end; i++) {
+        html += `<li class="page-item ${i === page ? "active" : ""}">
+          <a class="page-link" href="#" onclick="event.preventDefault();renderPage(${i})">${i}</a>
+        </li>`;
+      }
+
+      if (end < totalPages) {
+        if (end < totalPages - 1) html += `<li class="page-item disabled"><a class="page-link">…</a></li>`;
+        html += `<li class="page-item"><a class="page-link" href="#" onclick="event.preventDefault();renderPage(${totalPages})">${totalPages}</a></li>`;
+      }
+
+      // Nút »
+      html += `<li class="page-item ${page === totalPages ? "disabled" : ""}">
+        <a class="page-link" href="#" onclick="event.preventDefault();${page < totalPages ? `renderPage(${page + 1})` : ""}">»</a>
+      </li>`;
+
+      html += `</ul></nav>`;
+      wrap.innerHTML = html;
+    }
+
+    // ── Set danh sách và render từ trang 1 ───────────────────────
+    function setList(list) {
+      _currentList = list;
+      renderPage(1);
+    }
+
+    // ── Sắp xếp ─────────────────────────────────────────────────
+    function sortProducts(type, btn) {
+      document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      let list = [..._currentList];
+      if (type === "default") {
+        // Reset về danh sách gốc trước khi sort
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get("cat") || "";
+        list = cat
+          ? PRODUCTS.filter(p => Array.isArray(p.category) ? p.category.includes(cat) : p.category === cat)
+          : [...PRODUCTS];
+      }
+      if (type === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
+      if (type === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
+      if (type === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name, "vi"));
+      setList(list);
+    }
+
+    // ── Tìm kiếm ────────────────────────────────────────────────
+    function handleSearch(val) {
+      if (!val.trim()) return;
+      const q = val.toLowerCase();
+      const list = PRODUCTS.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.fullDesc.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q))
+      );
+      document.getElementById("cat-title").textContent = `Kết quả: "${val}"`;
+      document.getElementById("cat-breadcrumb").textContent = "Tìm kiếm";
+      document.getElementById("cat-desc").textContent = `Tìm thấy ${list.length} sản phẩm`;
+      setList(list);
+    }
+
+    // ── Khởi tạo ────────────────────────────────────────────────
+    document.addEventListener("DOMContentLoaded", () => {
+      cartUpdateBadge();
+
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("cat") || "";
+      const search = params.get("search") || "";
+
+      if (search) {
+        handleSearch(search);
+        setTimeout(() => {
+          const inp = document.querySelector(".search-bar .form-control");
+          if (inp) inp.value = search;
+        }, 150);
+      } else if (cat) {
+        document.getElementById("cat-title").textContent = cat;
+        document.getElementById("cat-breadcrumb").textContent = cat;
+        document.getElementById("cat-desc").textContent = "Khám phá bộ sưu tập " + cat.toLowerCase();
+        const list = PRODUCTS.filter(p =>
+          Array.isArray(p.category) ? p.category.includes(cat) : p.category === cat
+        );
+        setList(list);
+      } else {
+        setList([...PRODUCTS]);
+      }
+    });
+  </script>
+</body>
+
+</html>
