@@ -327,7 +327,7 @@ body {
 }
 
 .mini-footer {
-  background: linear-gradient(160deg, #fde8f0 0%, #fef3f8 60%, #fff9fb 100%);
+  background: #fde8f0;
   padding: 18px 0 16px;
 }
 

@@ -146,11 +146,7 @@ function renderFooter() {
 
       <!-- Dòng 3: Copyright + badges -->
       <div class="mini-footer-bottom">
-        <span>© 2025 Hoa Tươi Hy Vọng</span>
-        <span class="mini-footer-sep">·</span>
-        <span><i class="bi bi-truck me-1"></i>Freeship</span>
-        <span class="mini-footer-sep">·</span>
-        <span><i class="bi bi-arrow-counterclockwise me-1"></i>Đổi trả 24h</span>
+        <span>© 2025 Shop Hoa Tươi, Design by Quý Cơ. All rights reserved.</span>
       </div>
 
     </div>
