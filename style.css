@@ -313,7 +313,7 @@ body {
   color: #888;
 }
 
-/* Footer*/
+/* Footer */
 /* ── Footer ───────────────────────────────────────────────── */
 .footer-wave {
   display: block;
@@ -334,126 +334,141 @@ footer {
 
 .footer-main {
   background: #1a0a12;
-  padding: 56px 0 40px;
+  padding: 40px 0 0;
 }
 
+/* ── Logo & tagline ── */
 .footer-logo-text {
   font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .footer-tagline {
   color: #c084a0;
-  font-size: .85rem;
-  line-height: 1.7;
-  margin-bottom: 20px;
-  max-width: 280px;
+  font-size: .82rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
+/* ── Top row: brand + subscribe ── */
+.footer-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.footer-brand-block {
+  flex: 1 1 260px;
+  max-width: 340px;
+}
+
+.footer-subscribe-block {
+  flex: 1 1 260px;
+  max-width: 340px;
+}
+
+/* ── Divider ── */
+.footer-divider {
+  border: none;
+  border-top: 1px solid #2e1020;
+  margin: 0 0 28px;
+}
+
+/* ── Middle: 3 cols ── */
+.footer-mid-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.footer-col {}
+
+.footer-section-title {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--pink-main);
+  margin-bottom: 14px;
+}
+
+/* ── Contact list ── */
 .footer-contact-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .footer-contact-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 9px;
   color: #c084a0;
-  font-size: .83rem;
+  font-size: .82rem;
   line-height: 1.5;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+a.footer-contact-item:hover {
+  color: #fff;
 }
 
 .footer-contact-icon {
   color: var(--pink-main);
-  font-size: .95rem;
+  font-size: .88rem;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
-.footer-section-title {
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--pink-main);
-  margin-bottom: 16px;
-}
-
+/* ── Nav links ── */
 .footer-links {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .footer-links a {
   color: #c084a0;
   text-decoration: none;
-  font-size: .85rem;
-  transition: color .2s, padding-left .2s;
+  font-size: .82rem;
+  transition: color .2s, padding-left .15s;
   display: inline-block;
 }
 
 .footer-links a:hover {
   color: #fff;
-  padding-left: 6px;
+  padding-left: 5px;
 }
 
-/* Social buttons */
-.footer-social-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.footer-social-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  color: #fff;
-  text-decoration: none;
-  transition: transform .2s, opacity .2s;
-}
-
-.footer-social-btn:hover {
-  transform: translateY(-3px);
-  color: #fff;
-  opacity: .85;
-}
-
-.footer-social-btn.facebook  { background: #1877f2; }
-.footer-social-btn.youtube   { background: #ff0000; }
-.footer-social-btn.instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
-.footer-social-btn.tiktok    { background: #010101; border: 1px solid #333; }
-
-/* Subscribe */
+/* ── Subscribe ── */
 .footer-subscribe-row {
   display: flex;
   gap: 0;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #3a1a2a;
+  margin-top: 10px;
 }
 
 .footer-subscribe-row input {
   flex: 1;
   background: #2a0f1e;
   border: none;
-  padding: 10px 14px;
+  padding: 9px 12px;
   color: #fff;
-  font-size: .83rem;
+  font-size: .82rem;
   outline: none;
+  min-width: 0;
 }
 
 .footer-subscribe-row input::placeholder {
@@ -463,47 +478,199 @@ footer {
 .footer-subscribe-row button {
   background: var(--pink-main);
   border: none;
-  padding: 10px 18px;
+  padding: 9px 16px;
   color: #fff;
   font-weight: 700;
-  font-size: .82rem;
+  font-size: .8rem;
   cursor: pointer;
   transition: background .2s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .footer-subscribe-row button:hover {
   background: var(--pink-dark);
 }
 
-/* Bottom bar */
-.footer-bottom-bar {
+/* ── Bottom row: social + badges + copy ── */
+.footer-bottom-row {
   background: #120608;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   padding: 14px 0;
-  color: #7a4060;
-  font-size: .78rem;
+  margin: 0 -12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
+
+.footer-social-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: transform .2s, opacity .2s;
+}
+
+.footer-social-btn:hover {
+  transform: translateY(-2px);
+  color: #fff;
+  opacity: .85;
+}
+
+.footer-social-btn.facebook  { background: #1877f2; }
+.footer-social-btn.youtube   { background: #ff0000; }
+.footer-social-btn.instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+.footer-social-btn.tiktok    { background: #010101; border: 1px solid #333; }
 
 .footer-badges {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .footer-badges span {
   color: #7a4060;
-  font-size: .78rem;
+  font-size: .75rem;
 }
 
 .footer-badges span i {
   color: var(--pink-main);
 }
 
+.footer-copy {
+  color: #7a4060;
+  font-size: .75rem;
+  white-space: nowrap;
+}
+
 /* Xóa style cũ không dùng nữa */
 .footer-email-input,
 .footer-bottom,
-.social-links {
+.social-links,
+.footer-bottom-bar,
+.footer-subscribe-box,
+.footer-brand {
   display: none;
+}
+
+/* ── Responsive Footer ── */
+
+/* Tablet: 768px — 2 cols */
+@media (max-width: 768px) {
+  .footer-main {
+    padding: 32px 0 0;
+  }
+
+  .footer-top-row {
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .footer-brand-block,
+  .footer-subscribe-block {
+    max-width: 100%;
+    flex: none;
+    width: 100%;
+  }
+
+  .footer-mid-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* Contact chiếm cả hàng trên */
+  .footer-col:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Liên hệ: hiển thị ngang trên tablet */
+  .footer-col:first-child .footer-contact-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 16px;
+  }
+
+  .footer-bottom-row {
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 12px;
+    margin: 0;
+  }
+
+  .footer-badges {
+    justify-content: center;
+  }
+}
+
+/* Mobile: 480px — 1 col, cực gọn */
+@media (max-width: 480px) {
+  .footer-main {
+    padding: 24px 0 0;
+  }
+
+  .footer-top-row {
+    margin-bottom: 16px;
+  }
+
+  .footer-mid-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Contact full-width */
+  .footer-col:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Liên hệ: 2 cột dạng icon + text ngắn */
+  .footer-col:first-child .footer-contact-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .footer-section-title {
+    margin-bottom: 10px;
+  }
+
+  .footer-links {
+    gap: 7px;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    margin: 0;
+  }
+
+  .footer-badges {
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .footer-copy {
+    order: 3;
+  }
 }
 
 /* Page header banner (dùng chung) */
@@ -1489,14 +1656,6 @@ footer {
     word-break: break-all;
   }
 
-  /* Footer */
-  .footer-main {
-    padding: 36px 0 28px;
-  }
-
-  .footer-tagline {
-    max-width: 100%;
-  }
 }
 
 /* ── 480px — small phones ── */
@@ -1544,17 +1703,6 @@ footer {
   /* Page header smaller */
   .page-header-banner h1 {
     font-size: 1.2rem;
-  }
-
-  /* Footer bottom bar */
-  .footer-badges {
-    gap: 8px;
-  }
-
-  .footer-bottom-bar .d-flex {
-    flex-direction: column;
-    gap: 6px;
-    text-align: center;
   }
 
   /* Auth card on very small screen */

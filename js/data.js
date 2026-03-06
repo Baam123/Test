@@ -112,7 +112,7 @@ const PRODUCTS = [
   }, 
   {
     id: 10,
-    name: "Capuccino - Hoa Đồng Tiền",
+    name: "Capuccino",
     price: 700000,
     oldPrice: null,
     category: ["HOA THEO BÓ", "CHỦ ĐỀ ĐẶC BIỆT", "THIẾT KẾ RIÊNG"],

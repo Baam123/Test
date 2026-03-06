@@ -120,7 +120,6 @@ function doLogoutGlobal() {
 function renderFooter() {
   document.getElementById("site-footer").innerHTML = `
   <footer>
-    <!-- Wave divider -->
     <div class="footer-wave">
       <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#1a0a12"/>
@@ -129,36 +128,52 @@ function renderFooter() {
 
     <div class="footer-main">
       <div class="container">
-        <div class="row g-5">
 
-          <!-- Cột 1: Brand -->
-          <div class="col-12 col-md-4">
-            <div class="footer-brand">
-              <div class="footer-logo-text">🌸 Hoa Tươi Hy Vọng</div>
-              <p class="footer-tagline">Mỗi bó hoa là một câu chuyện — chúng tôi giúp bạn kể câu chuyện đó thật đẹp.</p>
-              <div class="footer-contact-list">
-                <div class="footer-contact-item">
-                  <span class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></span>
-                  <span>123 Đường ABC, Q1, TP.HCM</span>
-                </div>
-                <div class="footer-contact-item">
-                  <span class="footer-contact-icon"><i class="bi bi-telephone-fill"></i></span>
-                  <span>0123 456 789</span>
-                </div>
-                <div class="footer-contact-item">
-                  <span class="footer-contact-icon"><i class="bi bi-envelope-fill"></i></span>
-                  <span>shophoatuoi@gmail.com</span>
-                </div>
-                <div class="footer-contact-item">
-                  <span class="footer-contact-icon"><i class="bi bi-clock-fill"></i></span>
-                  <span>07:00 – 18:30 (Thứ 2 – CN)</span>
-                </div>
+        <!-- Top: Brand + Subscribe ngang hàng -->
+        <div class="footer-top-row">
+          <div class="footer-brand-block">
+            <div class="footer-logo-text">🌸 Hoa Tươi Hy Vọng</div>
+            <p class="footer-tagline">Mỗi bó hoa là một câu chuyện — chúng tôi giúp bạn kể câu chuyện đó thật đẹp.</p>
+          </div>
+          <div class="footer-subscribe-block">
+            <div class="footer-section-title">Nhận Ưu Đãi Độc Quyền</div>
+            <div class="footer-subscribe-row">
+              <input type="email" id="subscribe-email" placeholder="Nhập email của bạn...">
+              <button id="subscribe-btn">Đăng Ký</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <!-- Middle: 3 cột info -->
+        <div class="footer-mid-row">
+
+          <!-- Liên hệ -->
+          <div class="footer-col">
+            <div class="footer-section-title">Liên Hệ</div>
+            <div class="footer-contact-list">
+              <a class="footer-contact-item" href="tel:0123456789">
+                <span class="footer-contact-icon"><i class="bi bi-telephone-fill"></i></span>
+                <span>0123 456 789</span>
+              </a>
+              <a class="footer-contact-item" href="mailto:shophoatuoi@gmail.com">
+                <span class="footer-contact-icon"><i class="bi bi-envelope-fill"></i></span>
+                <span>shophoatuoi@gmail.com</span>
+              </a>
+              <div class="footer-contact-item">
+                <span class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></span>
+                <span>123 Đường ABC, Q1, TP.HCM</span>
+              </div>
+              <div class="footer-contact-item">
+                <span class="footer-contact-icon"><i class="bi bi-clock-fill"></i></span>
+                <span>07:00 – 18:30 (T2 – CN)</span>
               </div>
             </div>
           </div>
 
-          <!-- Cột 2: Danh mục + Hỗ trợ -->
-          <div class="col-6 col-md-2">
+          <!-- Danh mục -->
+          <div class="footer-col">
             <div class="footer-section-title">Danh Mục</div>
             <ul class="footer-links">
               <li><a href="danhmuc.html?cat=HOA SINH NHẬT">Hoa Sinh Nhật</a></li>
@@ -169,7 +184,8 @@ function renderFooter() {
             </ul>
           </div>
 
-          <div class="col-6 col-md-2">
+          <!-- Hỗ trợ -->
+          <div class="footer-col">
             <div class="footer-section-title">Hỗ Trợ</div>
             <ul class="footer-links">
               <li><a href="#">Chính Sách Giao Hàng</a></li>
@@ -179,41 +195,26 @@ function renderFooter() {
               <li><a href="#">Liên Hệ Chúng Tôi</a></li>
             </ul>
           </div>
-
-          <!-- Cột 4: Social + Email -->
-          <div class="col-12 col-md-4">
-            <div class="footer-section-title">Kết Nối Với Chúng Tôi</div>
-            <div class="footer-social-row">
-              <a href="#" class="footer-social-btn facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="footer-social-btn youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
-              <a href="#" class="footer-social-btn instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="footer-social-btn tiktok" title="TikTok"><i class="bi bi-tiktok"></i></a>
-            </div>
-            <div class="footer-subscribe-box">
-              <div class="footer-section-title" style="margin-top:24px;">Nhận Ưu Đãi Độc Quyền</div>
-              <p style="color:#c084a0;font-size:.82rem;margin-bottom:10px;">Đăng ký để nhận thông tin khuyến mãi và bộ sưu tập mới nhất.</p>
-              <div class="footer-subscribe-row">
-                <input type="email" id="subscribe-email" placeholder="Nhập email của bạn...">
-                <button id="subscribe-btn">Đăng Ký</button>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </div>
 
-    <!-- Bottom bar -->
-    <div class="footer-bottom-bar">
-      <div class="container">
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-          <span>© 2025 Hoa Tươi Hy Vọng. All rights reserved.</span>
+        <div class="footer-divider"></div>
+
+        <!-- Bottom: social + copyright -->
+        <div class="footer-bottom-row">
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-btn facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="footer-social-btn youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" class="footer-social-btn instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="footer-social-btn tiktok" title="TikTok"><i class="bi bi-tiktok"></i></a>
+          </div>
           <div class="footer-badges">
-            <span><i class="bi bi-shield-check me-1"></i>Thanh toán bảo mật</span>
-            <span><i class="bi bi-truck me-1"></i>Freeship nội thành</span>
+            <span><i class="bi bi-shield-check me-1"></i>Bảo mật</span>
+            <span><i class="bi bi-truck me-1"></i>Freeship</span>
             <span><i class="bi bi-arrow-counterclockwise me-1"></i>Đổi trả 24h</span>
           </div>
+          <div class="footer-copy">© 2025 Hoa Tươi Hy Vọng</div>
         </div>
+
       </div>
     </div>
   </footer>

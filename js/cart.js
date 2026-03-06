@@ -99,6 +99,9 @@ function cartUpdateBadge() {
 // Render trang giỏ hàng
 
 function renderCartPage() {
+  // Guard: chỉ render nếu đang ở trang giỏ hàng
+  if (!document.getElementById("cart-empty")) return;
+
   const items = cartLoad();
 
   if (items.length === 0) {
@@ -174,9 +177,11 @@ function applyCoupon() {
 
   if (coupon !== undefined) {
     _cartDiscount = cartSubtotal() * coupon.discount;
+    sessionStorage.setItem("hoatuoi_discount", _cartDiscount.toString());
     msgEl.innerHTML = `<span style="color:green;">✅ ${coupon.label}!</span>`;
   } else {
     _cartDiscount = 0;
+    sessionStorage.removeItem("hoatuoi_discount");
     msgEl.innerHTML = `<span style="color:red;">❌ Mã không hợp lệ</span>`;
   }
   updateCartSummary();
