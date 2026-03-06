@@ -313,365 +313,153 @@ body {
   color: #888;
 }
 
-/* Footer */
-/* ── Footer ───────────────────────────────────────────────── */
-.footer-wave {
+/* ── Mini Footer ── */
+.mini-footer-wave {
   display: block;
   line-height: 0;
   margin-bottom: -2px;
   overflow: hidden;
 }
-.footer-wave svg {
+.mini-footer-wave svg {
   width: 100%;
-  height: 60px;
+  height: 48px;
   display: block;
 }
 
-footer {
-  background: transparent;
-  overflow: hidden;
+.mini-footer {
+  background: linear-gradient(160deg, #fde8f0 0%, #fef3f8 60%, #fff9fb 100%);
+  padding: 18px 0 16px;
 }
 
-.footer-main {
-  background: #1a0a12;
-  padding: 40px 0 0;
-}
-
-/* ── Logo & tagline ── */
-.footer-logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 8px;
-}
-
-.footer-tagline {
-  color: #c084a0;
-  font-size: .82rem;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ── Top row: brand + subscribe ── */
-.footer-top-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 28px;
-}
-
-.footer-brand-block {
-  flex: 1 1 260px;
-  max-width: 340px;
-}
-
-.footer-subscribe-block {
-  flex: 1 1 260px;
-  max-width: 340px;
-}
-
-/* ── Divider ── */
-.footer-divider {
-  border: none;
-  border-top: 1px solid #2e1020;
-  margin: 0 0 28px;
-}
-
-/* ── Middle: 3 cols ── */
-.footer-mid-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 28px;
-}
-
-.footer-col {}
-
-.footer-section-title {
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--pink-main);
-  margin-bottom: 14px;
-}
-
-/* ── Contact list ── */
-.footer-contact-list {
+.mini-footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  align-items: center;
+  gap: 11px;
 }
 
-.footer-contact-item {
+/* Dòng 1: brand + hotline + giờ */
+.mini-footer-top {
   display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  color: #c084a0;
-  font-size: .82rem;
-  line-height: 1.5;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  font-size: .88rem;
+  color: #777;
+}
+
+.mini-footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--pink-dark);
+}
+
+.mini-footer-phone {
+  color: var(--pink-dark);
+  font-weight: 700;
   text-decoration: none;
   transition: color .2s;
 }
 
-a.footer-contact-item:hover {
-  color: #fff;
-}
-
-.footer-contact-icon {
+.mini-footer-phone:hover {
   color: var(--pink-main);
-  font-size: .88rem;
-  flex-shrink: 0;
-  margin-top: 2px;
 }
 
-/* ── Nav links ── */
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.mini-footer-hours {
+  color: #999;
+  font-size: .84rem;
+}
+
+.mini-footer-sep {
+  color: #f0b8cc;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+/* Dòng 2: Social */
+.mini-footer-social {
   display: flex;
-  flex-direction: column;
-  gap: 9px;
+  gap: 10px;
 }
 
-.footer-links a {
-  color: #c084a0;
-  text-decoration: none;
-  font-size: .82rem;
-  transition: color .2s, padding-left .15s;
-  display: inline-block;
-}
-
-.footer-links a:hover {
-  color: #fff;
-  padding-left: 5px;
-}
-
-/* ── Subscribe ── */
-.footer-subscribe-row {
-  display: flex;
-  gap: 0;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid #3a1a2a;
-  margin-top: 10px;
-}
-
-.footer-subscribe-row input {
-  flex: 1;
-  background: #2a0f1e;
-  border: none;
-  padding: 9px 12px;
-  color: #fff;
-  font-size: .82rem;
-  outline: none;
-  min-width: 0;
-}
-
-.footer-subscribe-row input::placeholder {
-  color: #7a4060;
-}
-
-.footer-subscribe-row button {
-  background: var(--pink-main);
-  border: none;
-  padding: 9px 16px;
-  color: #fff;
-  font-weight: 700;
-  font-size: .8rem;
-  cursor: pointer;
-  transition: background .2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.footer-subscribe-row button:hover {
-  background: var(--pink-dark);
-}
-
-/* ── Bottom row: social + badges + copy ── */
-.footer-bottom-row {
-  background: #120608;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 14px 0;
-  margin: 0 -12px;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.footer-social-row {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.footer-social-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
+.mini-footer-social a {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #f5c8d8;
+  color: var(--pink-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  color: #fff;
+  font-size: .92rem;
   text-decoration: none;
-  transition: transform .2s, opacity .2s;
+  transition: background .2s, color .2s, transform .2s, border-color .2s;
+  box-shadow: 0 2px 6px rgba(231,9,109,.08);
 }
 
-.footer-social-btn:hover {
-  transform: translateY(-2px);
+.mini-footer-social a:hover {
+  background: var(--pink-main);
   color: #fff;
-  opacity: .85;
+  border-color: var(--pink-main);
+  transform: scale(1.13) translateY(-2px);
 }
 
-.footer-social-btn.facebook  { background: #1877f2; }
-.footer-social-btn.youtube   { background: #ff0000; }
-.footer-social-btn.instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
-.footer-social-btn.tiktok    { background: #010101; border: 1px solid #333; }
-
-.footer-badges {
+/* Dòng 3: copyright + badges */
+.mini-footer-bottom {
   display: flex;
-  gap: 14px;
+  align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  font-size: .77rem;
+  color: #bbb;
 }
 
-.footer-badges span {
-  color: #7a4060;
-  font-size: .75rem;
-}
-
-.footer-badges span i {
-  color: var(--pink-main);
-}
-
-.footer-copy {
-  color: #7a4060;
-  font-size: .75rem;
-  white-space: nowrap;
-}
-
-/* Xóa style cũ không dùng nữa */
-.footer-email-input,
-.footer-bottom,
-.social-links,
-.footer-bottom-bar,
-.footer-subscribe-box,
-.footer-brand {
-  display: none;
-}
-
-/* ── Responsive Footer ── */
-
-/* Tablet: 768px — 2 cols */
-@media (max-width: 768px) {
-  .footer-main {
-    padding: 32px 0 0;
-  }
-
-  .footer-top-row {
-    flex-direction: column;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  .footer-brand-block,
-  .footer-subscribe-block {
-    max-width: 100%;
-    flex: none;
-    width: 100%;
-  }
-
-  .footer-mid-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  /* Contact chiếm cả hàng trên */
-  .footer-col:first-child {
-    grid-column: 1 / -1;
-  }
-
-  /* Liên hệ: hiển thị ngang trên tablet */
-  .footer-col:first-child .footer-contact-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px 16px;
-  }
-
-  .footer-bottom-row {
-    justify-content: center;
-    text-align: center;
-    gap: 10px;
-    padding: 12px;
-    margin: 0;
-  }
-
-  .footer-badges {
-    justify-content: center;
-  }
-}
-
-/* Mobile: 480px — 1 col, cực gọn */
+/* ── Mobile: mini footer responsive ── */
 @media (max-width: 480px) {
-  .footer-main {
-    padding: 24px 0 0;
+  .mini-footer-wave svg {
+    height: 32px;
   }
 
-  .footer-top-row {
-    margin-bottom: 16px;
+  .mini-footer {
+    padding: 14px 0 14px;
   }
 
-  .footer-mid-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px 12px;
-    margin-bottom: 16px;
+  .mini-footer-top {
+    font-size: .82rem;
+    gap: 5px;
   }
 
-  /* Contact full-width */
-  .footer-col:first-child {
-    grid-column: 1 / -1;
+  .mini-footer-brand {
+    font-size: .9rem;
+    width: 100%;
+    text-align: center;
   }
 
-  /* Liên hệ: 2 cột dạng icon + text ngắn */
-  .footer-col:first-child .footer-contact-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+  /* Ẩn dấu · trước hotline khi brand xuống dòng */
+  .mini-footer-top .mini-footer-sep:first-of-type {
+    display: none;
   }
 
-  .footer-section-title {
-    margin-bottom: 10px;
+  .mini-footer-social a {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
   }
 
-  .footer-links {
-    gap: 7px;
-  }
-
-  .footer-bottom-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 12px;
-    margin: 0;
-  }
-
-  .footer-badges {
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .footer-copy {
-    order: 3;
+  .mini-footer-bottom {
+    font-size: .73rem;
+    gap: 5px;
   }
 }
+
+
 
 /* Page header banner (dùng chung) */
 .page-header-banner {

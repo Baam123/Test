@@ -119,103 +119,40 @@ function doLogoutGlobal() {
 // ── Footer ───────────────────────────────────────────────────────
 function renderFooter() {
   document.getElementById("site-footer").innerHTML = `
-  <footer>
-    <div class="footer-wave">
-      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#1a0a12"/>
-      </svg>
-    </div>
+  <div class="mini-footer-wave">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#fde8f0"/>
+    </svg>
+  </div>
+  <footer class="mini-footer">
+    <div class="mini-footer-inner">
 
-    <div class="footer-main">
-      <div class="container">
-
-        <!-- Top: Brand + Subscribe ngang hàng -->
-        <div class="footer-top-row">
-          <div class="footer-brand-block">
-            <div class="footer-logo-text">🌸 Hoa Tươi Hy Vọng</div>
-            <p class="footer-tagline">Mỗi bó hoa là một câu chuyện — chúng tôi giúp bạn kể câu chuyện đó thật đẹp.</p>
-          </div>
-          <div class="footer-subscribe-block">
-            <div class="footer-section-title">Nhận Ưu Đãi Độc Quyền</div>
-            <div class="footer-subscribe-row">
-              <input type="email" id="subscribe-email" placeholder="Nhập email của bạn...">
-              <button id="subscribe-btn">Đăng Ký</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-divider"></div>
-
-        <!-- Middle: 3 cột info -->
-        <div class="footer-mid-row">
-
-          <!-- Liên hệ -->
-          <div class="footer-col">
-            <div class="footer-section-title">Liên Hệ</div>
-            <div class="footer-contact-list">
-              <a class="footer-contact-item" href="tel:0123456789">
-                <span class="footer-contact-icon"><i class="bi bi-telephone-fill"></i></span>
-                <span>0123 456 789</span>
-              </a>
-              <a class="footer-contact-item" href="mailto:shophoatuoi@gmail.com">
-                <span class="footer-contact-icon"><i class="bi bi-envelope-fill"></i></span>
-                <span>shophoatuoi@gmail.com</span>
-              </a>
-              <div class="footer-contact-item">
-                <span class="footer-contact-icon"><i class="bi bi-geo-alt-fill"></i></span>
-                <span>123 Đường ABC, Q1, TP.HCM</span>
-              </div>
-              <div class="footer-contact-item">
-                <span class="footer-contact-icon"><i class="bi bi-clock-fill"></i></span>
-                <span>07:00 – 18:30 (T2 – CN)</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Danh mục -->
-          <div class="footer-col">
-            <div class="footer-section-title">Danh Mục</div>
-            <ul class="footer-links">
-              <li><a href="danhmuc.html?cat=HOA SINH NHẬT">Hoa Sinh Nhật</a></li>
-              <li><a href="danhmuc.html?cat=HOA KHAI TRƯƠNG">Hoa Khai Trương</a></li>
-              <li><a href="danhmuc.html?cat=HOA THEO BÓ">Hoa Theo Bó</a></li>
-              <li><a href="danhmuc.html?cat=CHỦ ĐỀ ĐẶC BIỆT">Chủ Đề Đặc Biệt</a></li>
-              <li><a href="danhmuc.html?cat=THIẾT KẾ RIÊNG">Thiết Kế Riêng</a></li>
-            </ul>
-          </div>
-
-          <!-- Hỗ trợ -->
-          <div class="footer-col">
-            <div class="footer-section-title">Hỗ Trợ</div>
-            <ul class="footer-links">
-              <li><a href="#">Chính Sách Giao Hàng</a></li>
-              <li><a href="#">Chính Sách Đổi Trả</a></li>
-              <li><a href="#">Hướng Dẫn Mua Hàng</a></li>
-              <li><a href="#">Điều Khoản Sử Dụng</a></li>
-              <li><a href="#">Liên Hệ Chúng Tôi</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="footer-divider"></div>
-
-        <!-- Bottom: social + copyright -->
-        <div class="footer-bottom-row">
-          <div class="footer-social-row">
-            <a href="#" class="footer-social-btn facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="footer-social-btn youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
-            <a href="#" class="footer-social-btn instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="footer-social-btn tiktok" title="TikTok"><i class="bi bi-tiktok"></i></a>
-          </div>
-          <div class="footer-badges">
-            <span><i class="bi bi-shield-check me-1"></i>Bảo mật</span>
-            <span><i class="bi bi-truck me-1"></i>Freeship</span>
-            <span><i class="bi bi-arrow-counterclockwise me-1"></i>Đổi trả 24h</span>
-          </div>
-          <div class="footer-copy">© 2025 Hoa Tươi Hy Vọng</div>
-        </div>
-
+      <!-- Dòng 1: Brand + Hotline + Giờ -->
+      <div class="mini-footer-top">
+        <span class="mini-footer-brand">🌸 Hoa Tươi Hy Vọng</span>
+        <span class="mini-footer-sep">·</span>
+        <a href="tel:0123456789" class="mini-footer-phone"><i class="bi bi-telephone-fill"></i> 0123 456 789</a>
+        <span class="mini-footer-sep">·</span>
+        <span class="mini-footer-hours"><i class="bi bi-clock"></i> 07:00 – 18:30</span>
       </div>
+
+      <!-- Dòng 2: Social icons -->
+      <div class="mini-footer-social">
+        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" title="TikTok"><i class="bi bi-tiktok"></i></a>
+        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+      </div>
+
+      <!-- Dòng 3: Copyright + badges -->
+      <div class="mini-footer-bottom">
+        <span>© 2025 Hoa Tươi Hy Vọng</span>
+        <span class="mini-footer-sep">·</span>
+        <span><i class="bi bi-truck me-1"></i>Freeship</span>
+        <span class="mini-footer-sep">·</span>
+        <span><i class="bi bi-arrow-counterclockwise me-1"></i>Đổi trả 24h</span>
+      </div>
+
     </div>
   </footer>
   <div id="toast-container" class="toast-container"></div>`;
@@ -227,14 +164,5 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("site-footer")) renderFooter();
 
   setTimeout(() => {
-    document.getElementById("subscribe-btn")?.addEventListener("click", () => {
-      const emailEl = document.getElementById("subscribe-email");
-      if (!emailEl.value.includes("@")) { emailEl.style.borderColor = "red"; return; }
-      emailEl.style.borderColor = "";
-      emailEl.value = "";
-      document.getElementById("subscribe-btn").textContent = "✓ Xong!";
-      setTimeout(() => document.getElementById("subscribe-btn").textContent = "Đăng Ký", 2000);
-      showToast("📧 Đăng ký nhận tin thành công!");
-    });
   }, 100);
 });
