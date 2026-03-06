@@ -153,11 +153,7 @@ body {
   text-align: center;
   padding: 10px 16px;
   font-weight: 700;
-  font-size: .9rem;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  font-size: 0.9rem;
 }
 
 /* Section title box */
@@ -313,83 +309,126 @@ body {
   color: #888;
 }
 
-/* ── Mini Footer ── */
-.mini-footer-wave {
+/* ── Site Footer ── */
+.footer-wave {
   display: block;
   line-height: 0;
   margin-bottom: -2px;
   overflow: hidden;
 }
-.mini-footer-wave svg {
+.footer-wave svg {
   width: 100%;
   height: 48px;
   display: block;
 }
 
-.mini-footer {
+.site-footer {
   background: #fde8f0;
-  padding: 18px 0 16px;
+  /* background: var(--pink-light); */
+  padding: 36px 0 0;
 }
 
-.mini-footer-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 11px;
+/* 3-column grid */
+.footer-cols {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 28px;
 }
 
-/* Dòng 1: brand + hotline + giờ */
-.mini-footer-top {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  font-size: .88rem;
-  color: #777;
-}
-
-.mini-footer-brand {
+/* Cột 1: Brand */
+.footer-brand-name {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: .95rem;
+  font-size: 1.3rem;
   color: var(--pink-dark);
+  margin-bottom: 10px;
 }
 
-.mini-footer-phone {
-  color: var(--pink-dark);
-  font-weight: 700;
+.footer-brand-desc {
+  color: #999;
+  font-size: .95rem;
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.footer-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.footer-info-list li {
+  color: #666;
+  font-size: .95rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.footer-info-list li i {
+  color: var(--pink-main);
+  font-size: .95rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-info-list a {
+  color: #666;
   text-decoration: none;
   transition: color .2s;
 }
 
-.mini-footer-phone:hover {
-  color: var(--pink-main);
+.footer-info-list a:hover {
+  color: var(--pink-dark);
 }
 
-.mini-footer-hours {
-  color: #999;
-  font-size: .84rem;
+/* Cột tiêu đề chung */
+.footer-col-title {
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--pink-dark);
+  margin-bottom: 14px;
 }
 
-.mini-footer-sep {
-  color: #f0b8cc;
-  font-weight: 300;
-  font-size: 1rem;
+/* Cột 2: Links */
+.footer-col-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
 
-/* Dòng 2: Social */
-.mini-footer-social {
+.footer-col-links a {
+  color: #777;
+  text-decoration: none;
+  font-size: .95rem;
+  transition: color .2s, padding-left .15s;
+  display: inline-block;
+}
+
+.footer-col-links a:hover {
+  color: var(--pink-dark);
+  padding-left: 4px;
+}
+
+/* Cột 3: Social */
+.footer-social-icons {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.mini-footer-social a {
-  width: 34px;
-  height: 34px;
+.footer-social-icons a {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #fff;
   border: 1.5px solid #f5c8d8;
@@ -397,65 +436,56 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: .92rem;
+  font-size: 1.1rem;
   text-decoration: none;
   transition: background .2s, color .2s, transform .2s, border-color .2s;
   box-shadow: 0 2px 6px rgba(231,9,109,.08);
 }
 
-.mini-footer-social a:hover {
+.footer-social-icons a:hover {
   background: var(--pink-main);
   color: #fff;
   border-color: var(--pink-main);
-  transform: scale(1.13) translateY(-2px);
+  transform: scale(1.12) translateY(-2px);
 }
 
-/* Dòng 3: copyright + badges */
-.mini-footer-bottom {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  font-size: .77rem;
-  color: #bbb;
+/* Bottom bar */
+.footer-bottom-bar {
+  border-top: 1px solid #f5c0d4;
+  padding: 14px 0;
+  text-align: center;
+  color: #737373;
+  font-size: .88rem;
 }
 
-/* ── Mobile: mini footer responsive ── */
+/* ── Responsive Footer ── */
+@media (max-width: 768px) {
+  .footer-wave svg { height: 32px; }
+
+  .footer-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .footer-col-brand {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 480px) {
-  .mini-footer-wave svg {
-    height: 32px;
+  .footer-cols {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 20px;
   }
 
-  .mini-footer {
-    padding: 14px 0 14px;
+  .footer-col-brand {
+    grid-column: unset;
   }
 
-  .mini-footer-top {
-    font-size: .82rem;
-    gap: 5px;
-  }
-
-  .mini-footer-brand {
-    font-size: .9rem;
-    width: 100%;
-    text-align: center;
-  }
-
-  /* Ẩn dấu · trước hotline khi brand xuống dòng */
-  .mini-footer-top .mini-footer-sep:first-of-type {
-    display: none;
-  }
-
-  .mini-footer-social a {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-  }
-
-  .mini-footer-bottom {
-    font-size: .73rem;
-    gap: 5px;
+  .footer-social-icons a {
+    width: 38px;
+    height: 38px;
   }
 }
 

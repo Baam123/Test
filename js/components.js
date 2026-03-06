@@ -119,36 +119,52 @@ function doLogoutGlobal() {
 // ── Footer ───────────────────────────────────────────────────────
 function renderFooter() {
   document.getElementById("site-footer").innerHTML = `
-  <div class="mini-footer-wave">
+  <div class="footer-wave">
     <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#fde8f0"/>
     </svg>
   </div>
-  <footer class="mini-footer">
-    <div class="mini-footer-inner">
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
 
-      <!-- Dòng 1: Brand + Hotline + Giờ -->
-      <div class="mini-footer-top">
-        <span class="mini-footer-brand">🌸 Hoa Tươi Hy Vọng</span>
-        <span class="mini-footer-sep">·</span>
-        <a href="tel:0123456789" class="mini-footer-phone"><i class="bi bi-telephone-fill"></i> 0123 456 789</a>
-        <span class="mini-footer-sep">·</span>
-        <span class="mini-footer-hours"><i class="bi bi-clock"></i> 07:00 – 18:30</span>
+        <div class="footer-col-brand">
+          <div class="footer-brand-name">🌸 Hoa Tươi Hy Vọng</div>
+          <p class="footer-brand-desc">Mỗi bông hoa là một câu chuyện, hãy để hoa nói thay lời bạn.</p>
+          <ul class="footer-info-list">
+            <li><i class="bi bi-geo-alt-fill"></i> 123 Đường ABC, Q1, TP.HCM</li>
+            <li><a href="tel:0123456789"><i class="bi bi-telephone-fill"></i>&#160; 0123 456 789</a></li>
+            <li><a href="mailto:shophoatuoihyvong@gmail.com"><i class="bi bi-envelope-fill"></i>&#160; shophoatuoihyvong@gmail.com</a></li>
+            <li><i class="bi bi-clock-fill"></i> 07:00 - 18:30 (T2 - CN)</li>
+          </ul>
+        </div>
+
+        <div class="footer-col-links">
+          <div class="footer-col-title">HỖ TRỢ KHÁCH HÀNG</div>
+          <ul>
+            <li><a href="#">Chính Sách Giao Hàng</a></li>
+            <li><a href="#">Chính Sách Đổi Trả</a></li>
+            <li><a href="#">Hướng Dẫn Mua Hàng</a></li>
+            <li><a href="#">Điều Khoản Sử Dụng</a></li>
+            <li><a href="#">Liên Hệ Chúng Tôi</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col-social">
+          <div class="footer-col-title">KẾT NỐI VỚI CHÚNG TÔI</div>
+          <div class="footer-social-icons">
+            <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="bi bi-tiktok"></i></a>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Dòng 2: Social icons -->
-      <div class="mini-footer-social">
-        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" title="TikTok"><i class="bi bi-tiktok"></i></a>
-        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+      <div class="footer-bottom-bar">
+        <span>© 2025 Hoa Tươi Hy Vọng, Design by Quý Cơ. All rights reserved.</span>
       </div>
-
-      <!-- Dòng 3: Copyright + badges -->
-      <div class="mini-footer-bottom">
-        <span>© 2025 Shop Hoa Tươi, Design by Quý Cơ. All rights reserved.</span>
-      </div>
-
     </div>
   </footer>
   <div id="toast-container" class="toast-container"></div>`;

@@ -97,8 +97,20 @@ function productCardHTML(p, colClass = "col-6 col-md-3") {
 function renderHomeProducts() {
   const hot = PRODUCTS.filter(p => p.hot);
   const newP = PRODUCTS.filter(p => !p.hot);
-  document.getElementById("home-hot-grid").innerHTML = hot.map(p => productCardHTML(p)).join("");
-  document.getElementById("home-new-grid").innerHTML = newP.slice(0, 4).map(p => productCardHTML(p)).join("");
+  const designP = PRODUCTS.filter(p => p.custom === true);
+
+  if (document.getElementById("home-hot-grid")) {
+    document.getElementById("home-hot-grid").innerHTML = hot.map(p => productCardHTML(p)).join("");
+  }
+  
+  if (document.getElementById("home-new-grid")) {
+    document.getElementById("home-new-grid").innerHTML = newP.slice(0, 4).map(p => productCardHTML(p)).join("");
+  }
+
+  // Đổ vào grid thiết kế riêng
+  if (document.getElementById("home-design-grid")) {
+    document.getElementById("home-design-grid").innerHTML = designP.map(p => productCardHTML(p)).join("");
+  }
 }
 
 // ── Tìm kiếm ─────────────────────────────────────────────────────
